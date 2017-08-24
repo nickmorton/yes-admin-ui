@@ -1,0 +1,12 @@
+<md-nav-list>
+	<md-list-item *ngFor="let user of users">
+		<a md-line href="#" (click)="view(user)">
+			<h3>{{user.forename}} {{user.surname}}</h3>
+		</a>
+		<p md-line>
+			<em>{{user.gender}}</em>
+			<span *ngIf="user.dob">, born <em>{{user.dob | date}}</em></span>
+			<span *ngIf="user.lastVisited">, last visited <em>{{(user.lastVisited) | date}}</em></span>
+		</p>
+	</md-list-item>
+</md-nav-list>

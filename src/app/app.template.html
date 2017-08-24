@@ -1,0 +1,29 @@
+<md-sidenav-container fullscreen>
+	<md-sidenav #sideNav mode="over">
+		<md-nav-list>
+			<a md-list-item [routerLink]="['/']" routerLinkActive="active">
+				<md-icon md-list-icon>home</md-icon>
+				<span md-line>Home</span>
+			</a>
+			<a md-list-item [routerLink]="['users']" routerLinkActive="active">
+				<md-icon md-list-icon>folder</md-icon>
+				<span md-line>Users</span>
+			</a>
+			<a md-list-item [routerLink]="['staff']" routerLinkActive="active">
+				<md-icon md-list-icon>folder</md-icon>
+				<span md-line>Staff</span>
+			</a>
+		</md-nav-list>
+	</md-sidenav>
+	<div>
+		<md-toolbar color="primary">
+			<button md-icon-button (click)="sideNav.toggle()">
+        		<md-icon class="md-24">menu</md-icon>
+			</button>
+			<span>YES Administration</span>
+			<span class="flex-fill-remaining-space"></span>
+			<button md-icon-button><md-icon class="md-24">more_vert</md-icon></button>
+		</md-toolbar>
+	</div>
+	<router-outlet></router-outlet>
+</md-sidenav-container>
