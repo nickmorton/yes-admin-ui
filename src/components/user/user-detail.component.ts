@@ -6,13 +6,13 @@ import { Observable } from 'rxjs/rx';
 import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../lib';
 import { UserService } from './user.service';
 import {
-	IUser,
-	UserValidator,
 	CrisisSupportCode,
 	EthnicityCode,
 	FamilySupportCode,
-	TGender,
-	IResponse
+	IResponse,
+	IUser,
+	UserValidator,
+	TGender
 } from '@nickmorton/yes-admin-common';
 import { tansformSlideInOut } from './user-detail.animations';
 
@@ -44,6 +44,8 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	public familySupportCode: typeof FamilySupportCode = FamilySupportCode;
 	public formErrors: { [key: string]: Array<string> } = {};
 	public form: FormGroup;
+	public readonly defaultDobYear = UserValidator.defaultDobYear;
+	public readonly maximumDob = UserValidator.maximumDob;
 
 	constructor(
 		private formBuilder: FormBuilder,
