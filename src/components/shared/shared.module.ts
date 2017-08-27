@@ -43,7 +43,6 @@ import { MdToolbarModule } from '@angular/material';
 			MdRadioModule,
 			MdSelectModule,
 			MdSidenavModule,
-			MdTableModule,
 			MdToolbarModule,
 		],
 	},
