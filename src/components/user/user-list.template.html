@@ -1,5 +1,9 @@
+<md-input-container floatPlaceholder="never">
+	<input mdInput #filter placeholder="Filter users">
+  </md-input-container>
+
 <md-nav-list>
-	<md-list-item *ngFor="let user of users">
+	<md-list-item *ngFor="let user of users | async">
 		<a md-line href="#" (click)="view(user)">
 			<h3>{{user.forename}} {{user.surname}}</h3>
 		</a>
