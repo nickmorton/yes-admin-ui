@@ -7,10 +7,13 @@ import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../lib';
 import { UserService } from './user.service';
 import {
 	CrisisSupportCode,
+	EmploymentStatusCode,
 	EthnicityCode,
 	FamilySupportCode,
+	HousingStatusCode,
 	IResponse,
 	IUser,
+	JobSearchFrequencyCode,
 	UserValidator,
 	TGender
 } from '@nickmorton/yes-admin-common';
@@ -22,12 +25,19 @@ export interface IUserDetailData {
 
 interface IFormModel {
 	crisisSupport: Array<CrisisSupportCode>;
+	dob: Date;
+	employmentStatus: EmploymentStatusCode,
 	ethnicity: EthnicityCode;
 	familySupport: FamilySupportCode;
 	forename: string;
 	gender: TGender;
-	dob: Date;
+	hasCurrentCV: boolean,
+	hasSkillsToFindJob: boolean,
+	housingStatus: HousingStatusCode,
 	isDobApproximate: boolean;
+	isSearchingForJob: boolean;
+	jobInterviewsInLastMonth: number;
+	jobSearchFrequency: JobSearchFrequencyCode;
 	surname: string;
 }
 
@@ -40,8 +50,11 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	public user: IUser = <IUser>{};
 	public validators: Map<string, Array<INgValidator>>;
 	public crisisSupportCode: typeof CrisisSupportCode = CrisisSupportCode;
+	public employmentStatusCode: typeof EmploymentStatusCode = EmploymentStatusCode;
 	public ethnicityCode: typeof EthnicityCode = EthnicityCode;
 	public familySupportCode: typeof FamilySupportCode = FamilySupportCode;
+	public housingStatusCode: typeof HousingStatusCode = HousingStatusCode;
+	public jobSearchFrequencyCode: typeof JobSearchFrequencyCode = JobSearchFrequencyCode;
 	public formErrors: { [key: string]: Array<string> } = {};
 	public form: FormGroup;
 	public readonly defaultDobYear = UserValidator.defaultDobYear;
@@ -84,11 +97,18 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		this.form = this.formBuilder.group(this.createFormGroup(
 			'crisisSupport',
 			'dob',
+			'employmentStatus',
 			'ethnicity',
 			'familySupport',
 			'forename',
 			'gender',
+			'hasCurrentCV',
+			'hasSkillsToFindJob',
+			'housingStatus',
 			'isDobApproximate',
+			'isSearchingForJob',
+			'jobInterviewsInLastMonth',
+			'jobSearchFrequency',
 			'surname',
 		));
 
@@ -100,11 +120,18 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		const formModel: IFormModel = {
 			crisisSupport: this.user.crisisSupport,
 			dob: this.user.dob,
+			employmentStatus: this.user.employmentStatus,
 			ethnicity: this.user.ethnicity,
 			familySupport: this.user.familySupport,
 			forename: this.user.forename || '',
 			gender: this.user.gender,
+			hasCurrentCV: this.user.hasCurrentCV,
+			hasSkillsToFindJob: this.user.hasSkillsToFindJob,
+			housingStatus: this.user.housingStatus,
 			isDobApproximate: this.user.isDobApproximate,
+			isSearchingForJob: this.user.isSearchingForJob,
+			jobInterviewsInLastMonth: this.user.jobInterviewsInLastMonth || 0,
+			jobSearchFrequency: this.user.jobSearchFrequency,
 			surname: this.user.surname || '',
 		};
 		this.form.reset(formModel);

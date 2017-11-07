@@ -41,8 +41,62 @@
 
 					<div fxFlex>
 						<p>
+							<md-select id="employmentStatus" formControlName="employmentStatus" placeholder="Employment Status">
+								<md-option *ngFor="let code of employmentStatusCode | keys" [value]="code.value">{{code.key}}</md-option>
+							</md-select>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<md-checkbox id="hasCurrentCV" formControlName="hasCurrentCV" align="start">
+								Has current CV?
+							</md-checkbox>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<md-checkbox id="hasSkillsToFindJob" formControlName="hasSkillsToFindJob" align="start">
+								Has the skills to find a job?
+							</md-checkbox>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<md-checkbox id="isSearchingForJob" formControlName="isSearchingForJob" align="start">
+								Is currently searching for a job?
+							</md-checkbox>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<md-select id="jobSearchFrequency" formControlName="jobSearchFrequency" placeholder="Job search frequency">
+								<md-option *ngFor="let code of jobSearchFrequencyCode | keys" [value]="code.value">{{code.key}}</md-option>
+							</md-select>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<md-input-container class="full-width">
+							<input mdInput type="number" id="jobInterviewsInLastMonth" formControlName="jobInterviewsInLastMonth" placeholder="Numner of job interviews in the last month">
+						</md-input-container>
+					</div>
+
+					<div fxFlex>
+						<p>
 							<md-select id="ethnicity" formControlName="ethnicity" placeholder="Ethnicity">
 								<md-option *ngFor="let code of ethnicityCode | keys" [value]="code.value">{{code.key}}</md-option>
+							</md-select>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<md-select id="housingStatus" formControlName="housingStatus" placeholder="Housing Status">
+								<md-option *ngFor="let code of housingStatusCode | keys" [value]="code.value">{{code.key}}</md-option>
 							</md-select>
 						</p>
 					</div>
