@@ -5,115 +5,125 @@
 			<div fxFlex>
 				<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
 					<div fxFlex>
-						<md-input-container class="full-width">
-							<input mdInput id="forename" formControlName="forename" placeholder="Forename" required>
-						</md-input-container>
+						<mat-form-field class="full-width">
+							<input matInput id="forename" formControlName="forename" placeholder="Forename" required>
+						</mat-form-field>
 						<div *ngFor="let error of formErrors.forename">
 							{{ error }}
 						</div>
 					</div>
 					<div fxFlex>
-						<md-input-container class="full-width">
-							<input mdInput id="surname" formControlName="surname" placeholder="Surname" required>
-						</md-input-container>
+						<mat-form-field class="full-width">
+							<input matInput id="surname" formControlName="surname" placeholder="Surname" required>
+						</mat-form-field>
 						<div *ngFor="let error of formErrors.surname">
 							{{ error }}
 						</div>
 					</div>
 
 					<div fxFlex="1 1 50px">
-						<md-radio-group id="gender" formControlName="gender" placeholder="Gender">
-							<md-radio-button value="Female">Female</md-radio-button>
-							<md-radio-button value="Male">Male</md-radio-button>
-						</md-radio-group>
+						<mat-radio-group id="gender" formControlName="gender" placeholder="Gender">
+							<mat-radio-button value="Female">Female</mat-radio-button>
+							<mat-radio-button value="Male">Male</mat-radio-button>
+						</mat-radio-group>
 					</div>
 
 					<div fxFlex>
-						<md-input-container class="full-width">
-							<input mdInput [mdDatepicker]="dob" [max]="maximumDob" formControlName="dob" placeholder="Date of Birth">
-							<button mdSuffix [mdDatepickerToggle]="dob"></button>
-						</md-input-container>
-						<md-datepicker #dob startView="year" [startAt]="defaultDobYear"></md-datepicker>
-						<md-checkbox id="isDobApproximate" formControlName="isDobApproximate" align="start">
+						<mat-form-field class="full-width">
+							<input matInput [matDatepicker]="dob" [max]="maximumDob" formControlName="dob" placeholder="Date of Birth">
+							<mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+						</mat-form-field>
+						<mat-datepicker #dob startView="year" [startAt]="defaultDobYear"></mat-datepicker>
+						<mat-checkbox id="isDobApproximate" formControlName="isDobApproximate" align="start">
 							Approximate?
-						</md-checkbox>
+						</mat-checkbox>
+					</div>
+
+					<div fxFlex>
+						<mat-form-field class="full-width">
+							<mat-select id="employmentStatus" formControlName="employmentStatus" placeholder="Employment Status">
+								<mat-option *ngFor="let code of employmentStatusCode | keys" [value]="code.value">{{code.key}}</mat-option>
+							</mat-select>
+						</mat-form-field>
 					</div>
 
 					<div fxFlex>
 						<p>
-							<md-select id="employmentStatus" formControlName="employmentStatus" placeholder="Employment Status">
-								<md-option *ngFor="let code of employmentStatusCode | keys" [value]="code.value">{{code.key}}</md-option>
-							</md-select>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<md-checkbox id="hasCurrentCV" formControlName="hasCurrentCV" align="start">
+							<mat-checkbox id="hasCurrentCV" formControlName="hasCurrentCV" align="start">
 								Has current CV?
-							</md-checkbox>
+							</mat-checkbox>
 						</p>
 					</div>
 
 					<div fxFlex>
 						<p>
-							<md-checkbox id="hasSkillsToFindJob" formControlName="hasSkillsToFindJob" align="start">
+							<mat-checkbox id="hasSkillsToFindJob" formControlName="hasSkillsToFindJob" align="start">
 								Has the skills to find a job?
-							</md-checkbox>
+							</mat-checkbox>
 						</p>
 					</div>
 
 					<div fxFlex>
 						<p>
-							<md-checkbox id="isSearchingForJob" formControlName="isSearchingForJob" align="start">
+							<mat-checkbox id="isSearchingForJob" formControlName="isSearchingForJob" align="start">
 								Is currently searching for a job?
-							</md-checkbox>
+							</mat-checkbox>
 						</p>
 					</div>
 
 					<div fxFlex>
 						<p>
-							<md-select id="jobSearchFrequency" formControlName="jobSearchFrequency" placeholder="Job search frequency">
-								<md-option *ngFor="let code of jobSearchFrequencyCode | keys" [value]="code.value">{{code.key}}</md-option>
-							</md-select>
+							<mat-form-field class="full-width">
+								<mat-select id="jobSearchFrequency" formControlName="jobSearchFrequency" placeholder="Job search frequency">
+									<mat-option *ngFor="let code of jobSearchFrequencyCode | keys" [value]="code.value">{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
 						</p>
 					</div>
 
 					<div fxFlex>
-						<md-input-container class="full-width">
-							<input mdInput type="number" id="jobInterviewsInLastMonth" formControlName="jobInterviewsInLastMonth" placeholder="Numner of job interviews in the last month">
-						</md-input-container>
+						<mat-form-field class="full-width">
+							<input matInput type="number" id="jobInterviewsInLastMonth" formControlName="jobInterviewsInLastMonth" placeholder="Numner of job interviews in the last month">
+						</mat-form-field>
 					</div>
 
 					<div fxFlex>
 						<p>
-							<md-select id="ethnicity" formControlName="ethnicity" placeholder="Ethnicity">
-								<md-option *ngFor="let code of ethnicityCode | keys" [value]="code.value">{{code.key}}</md-option>
-							</md-select>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<md-select id="housingStatus" formControlName="housingStatus" placeholder="Housing Status">
-								<md-option *ngFor="let code of housingStatusCode | keys" [value]="code.value">{{code.key}}</md-option>
-							</md-select>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<md-select id="familySupport" formControlName="familySupport" placeholder="Family Support">
-								<md-option *ngFor="let code of familySupportCode | keys" [value]="code.value">{{code.key}}</md-option>
-							</md-select>
+							<mat-form-field class="full-width">
+								<mat-select id="ethnicity" formControlName="ethnicity" placeholder="Ethnicity">
+									<mat-option *ngFor="let code of ethnicityCode | keys" [value]="code.value">{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
 						</p>
 					</div>
 
 					<div fxFlex>
 						<p>
-							<md-select id="crisisSupport" formControlName="crisisSupport" placeholder="Crisis Support" [multiple]="true">
-								<md-option *ngFor="let code of crisisSupportCode | keys" [value]="code.value">{{code.key}}</md-option>
-							</md-select>
+							<mat-form-field class="full-width">
+								<mat-select id="housingStatus" formControlName="housingStatus" placeholder="Housing Status">
+									<mat-option *ngFor="let code of housingStatusCode | keys" [value]="code.value">{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<mat-select id="familySupport" formControlName="familySupport" placeholder="Family Support">
+									<mat-option *ngFor="let code of familySupportCode | keys" [value]="code.value">{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<mat-select id="crisisSupport" formControlName="crisisSupport" placeholder="Crisis Support" [multiple]="true">
+									<mat-option *ngFor="let code of crisisSupportCode | keys" [value]="code.value">{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
 						</p>
 					</div>
 				</div>
@@ -122,7 +132,7 @@
 			<div fxFlex>
 				<!--<div class="grid-cell">
 				<md-input [(ngModel)]="user.dob" type="date" name="dob" #dob placeholder="DoB"></md-input>
-				<md-checkbox [(ngModel)]="user.isDobApproximate" name="isDobApproximate" #isDobApproximate>Approximate?</md-checkbox>
+				<mat-checkbox [(ngModel)]="user.isDobApproximate" name="isDobApproximate" #isDobApproximate>Approximate?</mat-checkbox>
 			</div>
 
 			<div class="grid-cell">

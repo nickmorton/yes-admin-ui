@@ -1,16 +1,20 @@
-<md-input-container floatPlaceholder="never">
-	<input mdInput #filter placeholder="Filter users">
-  </md-input-container>
+<mat-form-field floatPlaceholder="never">
+	<input matInput #filterInput placeholder="Filter users" (keyup)=filter(filterInput.value) />
+</mat-form-field>
 
-<md-nav-list>
-	<md-list-item *ngFor="let user of users | async">
-		<a md-line href="#" (click)="view(user)">
+<mat-nav-list>
+	<mat-list-item *ngFor="let user of users">
+		<a matLine href="#" (click)="view(user)">
 			<h3>{{user.forename}} {{user.surname}}</h3>
 		</a>
-		<p md-line>
+		<p matLine>
 			<em>{{user.gender}}</em>
-			<span *ngIf="user.dob">, born <em>{{user.dob | date}}</em></span>
-			<span *ngIf="user.lastVisited">, last visited <em>{{(user.lastVisited) | date}}</em></span>
+			<span *ngIf="user.dob">, born
+				<em>{{user.dob | date}}</em>
+			</span>
+			<span *ngIf="user.lastVisited">, last visited
+				<em>{{(user.lastVisited) | date}}</em>
+			</span>
 		</p>
-	</md-list-item>
-</md-nav-list>
+	</mat-list-item>
+</mat-nav-list>

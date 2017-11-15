@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import {SharedModule} from '../shared/shared.module';
 import { UserComponent } from './user.component';
 import { UserListComponent, UserListResolve } from './user-list.component';
 import { UserDetailComponent, UserDetailResolve } from './user-detail.component';
@@ -19,9 +18,9 @@ import { DirectivesModule } from '../../directives/directives.module';
 		DirectivesModule,
 		FlexLayoutModule,
 		FormsModule,
-		MaterialModule,
 		PipesModule,
 		ReactiveFormsModule,
+		SharedModule
 	],
 	declarations: [
 		UserComponent,

@@ -1,49 +1,49 @@
 import { NgModule } from '@angular/core';
 
 // Material modules.
-import { MdButtonModule } from '@angular/material';
-import { MdCardModule } from '@angular/material';
-import { MdCheckboxModule } from '@angular/material';
-import { MdDatepickerModule, MdNativeDateModule } from '@angular/material';
-import { MdIconModule } from '@angular/material';
-import { MdInputModule } from '@angular/material';
-import { MdListModule } from '@angular/material';
-import { MdRadioModule } from '@angular/material';
-import { MdSelectModule } from '@angular/material';
-import { MdSidenavModule } from '@angular/material';
-import { MdTableModule } from '@angular/material';
-import { MdToolbarModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatIconModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
+import { MatListModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material';
+import { MatSidenavModule } from '@angular/material';
+import { MatTableModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
 
 @NgModule(
 	{
 		exports: [
-			MdButtonModule,
-			MdCardModule,
-			MdCheckboxModule,
-			MdDatepickerModule,
-			MdIconModule,
-			MdInputModule,
-			MdListModule,
-			MdNativeDateModule,
-			MdRadioModule,
-			MdSelectModule,
-			MdSidenavModule,
-			MdTableModule,
-			MdToolbarModule,
+			MatButtonModule,
+			MatCardModule,
+			MatCheckboxModule,
+			MatDatepickerModule,
+			MatIconModule,
+			MatInputModule,
+			MatListModule,
+			MatNativeDateModule,
+			MatRadioModule,
+			MatSelectModule,
+			MatSidenavModule,
+			MatTableModule,
+			MatToolbarModule,
 		],
 		imports: [
-			MdButtonModule,
-			MdCardModule,
-			MdCheckboxModule,
-			MdDatepickerModule,
-			MdIconModule,
-			MdInputModule,
-			MdListModule,
-			MdNativeDateModule,
-			MdRadioModule,
-			MdSelectModule,
-			MdSidenavModule,
-			MdToolbarModule,
+			MatButtonModule,
+			MatCardModule,
+			MatCheckboxModule,
+			MatDatepickerModule,
+			MatIconModule,
+			MatInputModule,
+			MatListModule,
+			MatNativeDateModule,
+			MatRadioModule,
+			MatSelectModule,
+			MatSidenavModule,
+			MatToolbarModule,
 		],
 	},
 )

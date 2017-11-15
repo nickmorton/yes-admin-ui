@@ -26,14 +26,14 @@ export interface IUserDetailData {
 interface IFormModel {
 	crisisSupport: Array<CrisisSupportCode>;
 	dob: Date;
-	employmentStatus: EmploymentStatusCode,
+	employmentStatus: EmploymentStatusCode;
 	ethnicity: EthnicityCode;
 	familySupport: FamilySupportCode;
 	forename: string;
 	gender: TGender;
-	hasCurrentCV: boolean,
-	hasSkillsToFindJob: boolean,
-	housingStatus: HousingStatusCode,
+	hasCurrentCV: boolean;
+	hasSkillsToFindJob: boolean;
+	housingStatus: HousingStatusCode;
 	isDobApproximate: boolean;
 	isSearchingForJob: boolean;
 	jobInterviewsInLastMonth: number;

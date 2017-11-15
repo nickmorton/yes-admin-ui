@@ -1,29 +1,31 @@
-<md-sidenav-container fullscreen>
-	<md-sidenav #sideNav mode="over">
-		<md-nav-list>
-			<a md-list-item [routerLink]="['/']" routerLinkActive="active">
-				<md-icon md-list-icon>home</md-icon>
-				<span md-line>Home</span>
+<mat-sidenav-container fullscreen>
+	<mat-sidenav #sideNav mode="over">
+		<mat-nav-list>
+			<a mat-list-item [routerLink]="['/']" routerLinkActive="active">
+				<mat-icon matListIcon>home</mat-icon>
+				<span matLine>Home</span>
 			</a>
-			<a md-list-item [routerLink]="['users']" routerLinkActive="active">
-				<md-icon md-list-icon>folder</md-icon>
-				<span md-line>Users</span>
+			<a mat-list-item [routerLink]="['users']" routerLinkActive="active">
+				<mat-icon matListIcon>folder</mat-icon>
+				<span matLine>Users</span>
 			</a>
-			<a md-list-item [routerLink]="['staff']" routerLinkActive="active">
-				<md-icon md-list-icon>folder</md-icon>
-				<span md-line>Staff</span>
+			<a mat-list-item [routerLink]="['staff']" routerLinkActive="active">
+				<mat-icon matListIcon>folder</mat-icon>
+				<span matLine>Staff</span>
 			</a>
-		</md-nav-list>
-	</md-sidenav>
+		</mat-nav-list>
+	</mat-sidenav>
 	<div>
-		<md-toolbar color="primary">
-			<button md-icon-button (click)="sideNav.toggle()">
-        		<md-icon class="md-24">menu</md-icon>
+		<mat-toolbar color="primary">
+			<button mat-icon-button (click)="sideNav.toggle()">
+				<mat-icon class="mat-24">menu</mat-icon>
 			</button>
 			<span>YES Administration</span>
 			<span class="flex-fill-remaining-space"></span>
-			<button md-icon-button><md-icon class="md-24">more_vert</md-icon></button>
-		</md-toolbar>
+			<button mat-icon-button>
+				<mat-icon class="mat-24">more_vert</mat-icon>
+			</button>
+		</mat-toolbar>
 	</div>
 	<router-outlet></router-outlet>
-</md-sidenav-container>
+</mat-sidenav-container>
