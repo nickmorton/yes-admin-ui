@@ -12,6 +12,7 @@ import {
 	IRequest,
 	IResponse,
 	IUser,
+	IUserGetRequest,
 	JobSearchFrequencyCode
 } from '@nickmorton/yes-admin-common';
 
@@ -20,7 +21,7 @@ export class UserService {
 	constructor(private http: Http) {
 	}
 
-	public get = (request: IPagedRequest<IUser>): Observable<IPagedResponse<IUser>> => {
+	public get = (request: IUserGetRequest): Observable<IPagedResponse<IUser>> => {
 		const searchParams: URLSearchParams = new URLSearchParams();
 		Object.keys(request).forEach((paramName: string) => searchParams.append(paramName, request[paramName]));
 
@@ -65,17 +66,3 @@ export class UserService {
 		} as IUser;
 	}
 }
-
-			// // gender: 'M',
-			// // ethnicity: 0,
-			// // crisisSupport: [],
-			// // familySupport: FamilySupportCode.unknown,
-			// // hasCurrentCV: false,
-			// // hasSkillsToFindJob: false,
-			// // isSearchingForJob: false,
-			// // jobInterviewsInLastMonth: 0,
-			// // jobSearchFrequency: JobSearchFrequencyCode.unknown,
-			// // name: '',
-			// // dob: null,
-			// // employmentStatus:
-			// // visits: []

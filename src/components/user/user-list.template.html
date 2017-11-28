@@ -3,7 +3,7 @@
 </mat-form-field>
 
 <mat-nav-list>
-	<mat-list-item *ngFor="let user of users">
+	<mat-list-item *ngFor="let user of users$ | async">
 		<a matLine href="#" (click)="view(user)">
 			<h3>{{user.forename}} {{user.surname}}</h3>
 		</a>
