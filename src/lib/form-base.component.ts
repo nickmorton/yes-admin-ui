@@ -1,5 +1,5 @@
 import { SimpleChange } from '@angular/core';
-import { FormGroup, ValidatorFn } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { BaseComponent } from './base.component';
 import { INgValidator } from './ng-validator-factory';
 

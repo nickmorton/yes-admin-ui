@@ -1,12 +1,13 @@
-import { Component, ElementRef, Injectable, OnInit } from '@angular/core';
-import { Router, Resolve, ActivatedRoute } from '@angular/router';
+import { Component, Injectable, OnInit } from '@angular/core';
+// // import { Router, Resolve, ActivatedRoute } from '@angular/router';
+import { Router, Resolve } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/Observable/of';
+import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { BaseComponent } from '../../lib';
 import { UserService } from './user.service';
-import { IPagedResponse, IUser } from '@nickmorton/yes-admin-common';
+import { IUser } from '@nickmorton/yes-admin-common';
 
 interface IUserListData {
 	users: Array<IUser>;
@@ -20,7 +21,10 @@ export class UserListComponent extends BaseComponent implements OnInit {
 	public users$: Observable<IUser[]>;
 	private filterNames = new Subject<string>();
 
-	constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
+	// // constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
+	// // 	super();
+	// // }
+	constructor(private router: Router, private userService: UserService) {
 		super();
 	}
 
@@ -33,7 +37,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
 		this.users$ = this.filterNames.pipe(
 			debounceTime(300),
 			distinctUntilChanged(),
-			switchMap(name => this.userService.get({ name, skip: 0, limit: 1000 }).map(r => r.entities))
+			switchMap(name => this.userService.get({ name, skip: 0, limit: 1000 }).pipe(map(r => r.entities)))
 		);
 	}
 
@@ -53,7 +57,8 @@ export class UserListResolve implements Resolve<IUserListData> {
 	}
 
 	public resolve(): Observable<IUserListData> {
-		return this.userService.get({ skip: 0, limit: 10000 })
-			.map((response: IPagedResponse<IUser>) => <IUserListData>{ users: response.entities });
+		return this.userService.get({ skip: 0, limit: 10000 }).pipe(
+			map(response => <IUserListData>{ users: response.entities })
+		);
 	}
 }

@@ -1,6 +1,7 @@
 import { Component, Injectable, SimpleChange, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute, ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/rx';
 
 import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../lib';
@@ -62,7 +63,6 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private router: Router,
 		private route: ActivatedRoute,
 		private userService: UserService,
 		validatorFactory: NgValidatorFactory,
@@ -146,8 +146,9 @@ export class UserDetailResolve implements Resolve<IUserDetailData> {
 	public resolve(route: ActivatedRouteSnapshot): Observable<IUserDetailData> {
 		const id: string = route.params['userId'];
 		if (id) {
-			return this.userService.getById(id)
-				.map((response: IResponse<IUser>) => <IUserDetailData>{ user: response.entity });
+			return this.userService.getById(id).pipe(
+				map(response => <IUserDetailData>{ user: response.entity })
+			);
 		}
 
 		return Observable.of({ user: this.userService.create() });

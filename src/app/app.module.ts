@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule  } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import 'hammerjs';
@@ -29,7 +29,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 		BrowserModule,
 		CommonModule,
 		FlexLayoutModule,
-		HttpModule,
+		HttpClientModule,
 		LibModule.forRoot(),
 		RouterModule,
 

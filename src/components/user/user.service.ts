@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/rx';
 
 import {
@@ -7,7 +7,6 @@ import {
 	EthnicityCode,
 	FamilySupportCode,
 	HousingStatusCode,
-	IPagedRequest,
 	IPagedResponse,
 	IRequest,
 	IResponse,
@@ -18,30 +17,26 @@ import {
 
 @Injectable()
 export class UserService {
-	constructor(private http: Http) {
+	constructor(private http: HttpClient) {
 	}
 
 	public get = (request: IUserGetRequest): Observable<IPagedResponse<IUser>> => {
-		const searchParams: URLSearchParams = new URLSearchParams();
+		const searchParams = new HttpParams();
 		Object.keys(request).forEach((paramName: string) => searchParams.append(paramName, request[paramName]));
 
-		return this.http.get('/api/users', { search: searchParams })
-			.map((httpResponse: Response) => httpResponse.json() as IPagedResponse<IUser>);
+		return this.http.get<IPagedResponse<IUser>>('/api/users', { params: searchParams });
 	}
 
 	public getById = (id: string): Observable<IResponse<IUser>> => {
-		return this.http.get(`/api/users/${id}`)
-			.map((res: Response) => res.json());
+		return this.http.get<IResponse<IUser>>(`/api/users/${id}`);
 	}
 
 	public add = (request: IRequest<IUser>): Observable<IResponse<IUser>> => {
-		return this.http.post('api/users', request)
-			.map((res: Response) => res.json() as IResponse<IUser>);
+		return this.http.post<IResponse<IUser>>('api/users', request);
 	}
 
 	public update = (request: IRequest<IUser>): Observable<IResponse<IUser>> => {
-		return this.http.put('api/users', request)
-			.map((res: Response) => res.json() as IResponse<IUser>);
+		return this.http.put<IResponse<IUser>>('api/users', request);
 	}
 
 	public create = (): IUser => {

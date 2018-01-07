@@ -130,28 +130,11 @@
 			</div>
 			<!-- Column 2 -->
 			<div fxFlex>
-				<!--<div class="grid-cell">
-				<md-input [(ngModel)]="user.dob" type="date" name="dob" #dob placeholder="DoB"></md-input>
-				<mat-checkbox [(ngModel)]="user.isDobApproximate" name="isDobApproximate" #isDobApproximate>Approximate?</mat-checkbox>
-			</div>
-
-			<div class="grid-cell">
-				<md-radio-group [(ngModel)]="user.gender" name="gender" #gender placeholder="Gender">
-					<md-radio-button value="F">Female</md-radio-button>
-					<md-radio-button value="M">Male</md-radio-button>
-				</md-radio-group>
-			</div>
-
-			<div class="grid-cell">
-				<select [(ngModel)]="user.ethnicity" name="ethnicity" #ethnicity placeholder="Ethnicity">
-					<option *ngFor="let code of ethnicityCode | keys" [value]="code.value">{{code.key}}</option>
-				</select>
-			</div>-->
 			</div>
 		</div>
 		<p>
-			<button md-raised-button type="submit" [disabled]="form.pristine">Save</button>
-			<button md-raised-button type="reset" (click)="onReset()" [disabled]="form.pristine">Reset</button>
+			<button mat-raised-button color="primary" type="submit" [disabled]="form.pristine">Save</button>
+			<button mat-raised-button type="reset" (click)="onReset()" [disabled]="form.pristine">Reset</button>
 		</p>
 	</form>
 </div>
