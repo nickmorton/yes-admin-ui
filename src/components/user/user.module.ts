@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {SharedModule} from '../shared/shared.module';
 import { UserComponent } from './user.component';
-import { UserListComponent, UserListResolve } from './user-list.component';
+import { UserListComponent } from './user-list.component';
 import { UserDetailComponent, UserDetailResolve } from './user-detail.component';
 import { UserService } from './user.service';
 import { userRoutes } from './user.routing';
@@ -29,7 +29,6 @@ import { DirectivesModule } from '../../directives/directives.module';
 	],
 	providers: [
 		UserDetailResolve,
-		UserListResolve,
 		UserService,
 	],
 })

@@ -1,17 +1,15 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // // import { Router, Resolve, ActivatedRoute } from '@angular/router';
-import { Router, Resolve } from '@angular/router';
+import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { BaseComponent } from '../../lib';
 import { UserService } from './user.service';
-import { IUser } from '@nickmorton/yes-admin-common';
+import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
 
-interface IUserListData {
-	users: Array<IUser>;
-}
+const PAGE_SIZE = 10;
 
 @Component({
 	selector: 'app-user-list',
@@ -21,24 +19,23 @@ export class UserListComponent extends BaseComponent implements OnInit {
 	public users$: Observable<IUser[]>;
 	private filterNames = new Subject<string>();
 
-	// // constructor(private router: Router, private route: ActivatedRoute, private userService: UserService) {
-	// // 	super();
-	// // }
 	constructor(private router: Router, private userService: UserService) {
 		super();
 	}
 
 	public ngOnInit() {
-		// // this.route.data.subscribe(
-		// // 	(result: { data: IUserListData }) => {
-		// // 		this.users = [...result.data.users];
-		// // 	},
-		// // );
 		this.users$ = this.filterNames.pipe(
-			debounceTime(300),
+			debounceTime(500),
 			distinctUntilChanged(),
-			switchMap(name => this.userService.get({ name, skip: 0, limit: 1000 }).pipe(map(r => r.entities)))
+			switchMap(name => {
+				const sort: TEntitySort<IUser> = name ? { surname: 1, forename: 1 } : { lastUpdated: -1 };
+				return this.userService
+					.get({ name, skip: 0, limit: PAGE_SIZE, sort })
+					.pipe(map(r => r.entities));
+			})
 		);
+
+		this.filter(' ');
 	}
 
 	public filter(name: string) {
@@ -48,17 +45,5 @@ export class UserListComponent extends BaseComponent implements OnInit {
 	public view = (user: IUser): boolean => {
 		this.router.navigate(['/users', user._id]);
 		return false;
-	}
-}
-
-@Injectable()
-export class UserListResolve implements Resolve<IUserListData> {
-	constructor(private userService: UserService) {
-	}
-
-	public resolve(): Observable<IUserListData> {
-		return this.userService.get({ skip: 0, limit: 10000 }).pipe(
-			map(response => <IUserListData>{ users: response.entities })
-		);
 	}
 }

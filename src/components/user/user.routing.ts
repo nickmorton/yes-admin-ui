@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { UserComponent } from '../user/user.component';
-import { UserListComponent, UserListResolve } from './user-list.component';
+import { UserListComponent } from './user-list.component';
 import { UserDetailComponent, UserDetailResolve } from './user-detail.component';
 
 const routes: Routes = [
@@ -11,7 +11,6 @@ const routes: Routes = [
 			{
 				path: '',
 				component: UserListComponent,
-				resolve: { data: UserListResolve },
 			},
 			{
 				path: 'add',

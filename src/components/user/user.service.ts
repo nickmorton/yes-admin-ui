@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/rx';
 
 import {
@@ -15,16 +15,16 @@ import {
 	JobSearchFrequencyCode
 } from '@nickmorton/yes-admin-common';
 
+import { buildHttpParams } from '../../lib';
+
 @Injectable()
 export class UserService {
 	constructor(private http: HttpClient) {
 	}
 
 	public get = (request: IUserGetRequest): Observable<IPagedResponse<IUser>> => {
-		const searchParams = new HttpParams();
-		Object.keys(request).forEach((paramName: string) => searchParams.append(paramName, request[paramName]));
-
-		return this.http.get<IPagedResponse<IUser>>('/api/users', { params: searchParams });
+		const params = buildHttpParams(request, 'limit', 'name', 'skip', 'sort');
+		return this.http.get<IPagedResponse<IUser>>('/api/users', { params });
 	}
 
 	public getById = (id: string): Observable<IResponse<IUser>> => {
