@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// // import { Router, Resolve, ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BaseComponent } from '../../lib';
 import { UserService } from './user.service';
 import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
@@ -17,7 +16,7 @@ const PAGE_SIZE = 10;
 })
 export class UserListComponent extends BaseComponent implements OnInit {
 	public users$: Observable<IUser[]>;
-	private filterNames = new Subject<string>();
+	private filterNames = new BehaviorSubject<string>('');
 
 	constructor(private router: Router, private userService: UserService) {
 		super();
@@ -34,8 +33,6 @@ export class UserListComponent extends BaseComponent implements OnInit {
 					.pipe(map(r => r.entities));
 			})
 		);
-
-		this.filter(' ');
 	}
 
 	public filter(name: string) {
