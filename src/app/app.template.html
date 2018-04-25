@@ -15,17 +15,19 @@
 			</a>
 		</mat-nav-list>
 	</mat-sidenav>
-	<div>
-		<mat-toolbar color="primary">
-			<button mat-icon-button (click)="sideNav.toggle()">
-				<mat-icon class="mat-24">menu</mat-icon>
-			</button>
-			<span>YES Administration</span>
-			<span class="flex-fill-remaining-space"></span>
-			<button mat-icon-button>
-				<mat-icon class="mat-24">more_vert</mat-icon>
-			</button>
-		</mat-toolbar>
-	</div>
-	<router-outlet></router-outlet>
+	<mat-sidenav-content>
+		<div>
+			<mat-toolbar color="primary">
+				<button mat-icon-button (click)="sideNav.toggle()">
+					<mat-icon class="mat-24">menu</mat-icon>
+				</button>
+				<span>YES Administration</span>
+				<span class="flex-fill-remaining-space"></span>
+				<button mat-icon-button>
+					<mat-icon class="mat-24">more_vert</mat-icon>
+				</button>
+			</mat-toolbar>
+		</div>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
 </mat-sidenav-container>
