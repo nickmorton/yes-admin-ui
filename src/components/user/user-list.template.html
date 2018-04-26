@@ -2,19 +2,25 @@
 	<input matInput #filterInput placeholder="Filter users" (keyup)=filter(filterInput.value) />
 </mat-form-field>
 
-<mat-nav-list>
-	<mat-list-item *ngFor="let user of users$ | async">
-		<a matLine href="#" (click)="view(user)">
-			<h3>{{user.forename}} {{user.surname}}</h3>
-		</a>
-		<p matLine>
-			<em>{{user.gender}}</em>
-			<span *ngIf="user.dob">, born
-				<em>{{user.dob | date}}</em>
-			</span>
-			<span *ngIf="user.lastVisited">, last visited
-				<em>{{(user.lastVisited) | date}}</em>
-			</span>
-		</p>
-	</mat-list-item>
-</mat-nav-list>
+<mat-table [dataSource]="users$">
+	<ng-container matColumnDef="userName">
+		<mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+		<mat-cell *matCellDef="let user">
+			<a href="#" (click)="view(user)">{{user.forename}} {{user.surname}}</a>
+		</mat-cell>
+	  </ng-container>
+	  <ng-container matColumnDef="gender">
+		<mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+		<mat-cell *matCellDef="let user">{{user.gender}}</mat-cell>
+	  </ng-container>
+	  <ng-container matColumnDef="dob">
+		<mat-header-cell *matHeaderCellDef>Date of Birth</mat-header-cell>
+		<mat-cell *matCellDef="let user">{{user.dob | date}}</mat-cell>
+	  </ng-container>
+	  <ng-container matColumnDef="lastVisited">
+		<mat-header-cell *matHeaderCellDef>Last Visited</mat-header-cell>
+		<mat-cell *matCellDef="let user">{{user.lastVisited | date}}</mat-cell>
+	  </ng-container>
+	  <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+	  <mat-row *matRowDef="let rowData; columns: tableColumns"></mat-row>
+</mat-table>

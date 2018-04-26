@@ -16,6 +16,7 @@ const PAGE_SIZE = 10;
 })
 export class UserListComponent extends BaseComponent implements OnInit {
 	public users$: Observable<IUser[]>;
+	public tableColumns = ['userName', 'gender', 'dob', 'lastVisited'];
 	private filterNames = new BehaviorSubject<string>('');
 
 	constructor(private router: Router, private userService: UserService) {
