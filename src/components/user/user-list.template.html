@@ -1,5 +1,5 @@
 <mat-form-field floatPlaceholder="never">
-	<input matInput #filterInput placeholder="Filter users" (keyup)=filter(filterInput.value) />
+	<input matInput #nameFilterInput placeholder="Filter users by name" (keyup)=onNameFilterChange(nameFilterInput.value) [value]="nameFilter" />
 </mat-form-field>
 
 <mat-table [dataSource]="users$">
@@ -18,8 +18,8 @@
 		<mat-cell *matCellDef="let user">{{user.dob | date}}</mat-cell>
 	  </ng-container>
 	  <ng-container matColumnDef="lastVisited">
-		<mat-header-cell *matHeaderCellDef>Last Visited</mat-header-cell>
-		<mat-cell *matCellDef="let user">{{user.lastVisited | date}}</mat-cell>
+		<mat-header-cell *matHeaderCellDef>Last Updated</mat-header-cell>
+		<mat-cell *matCellDef="let user">{{user.lastUpdated | date}}</mat-cell>
 	  </ng-container>
 	  <mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
 	  <mat-row *matRowDef="let rowData; columns: tableColumns"></mat-row>
