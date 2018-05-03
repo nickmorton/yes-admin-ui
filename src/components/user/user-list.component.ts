@@ -26,12 +26,14 @@ export class UserListComponent extends BaseComponent implements OnInit {
 	}
 
 	public ngOnInit() {
-		this.nameFilterSubject
-			.pipe(
-				debounceTime(500),
-				distinctUntilChanged()
-			)
-			.subscribe(name => this.router.navigate(['/users'], { queryParams: { name } }));
+		this.addForDisposal(
+			this.nameFilterSubject
+				.pipe(
+					debounceTime(500),
+					distinctUntilChanged()
+				)
+				.subscribe(name => this.router.navigate(['/users'], { queryParams: { name } }))
+		);
 
 		this.users$ = this.route.queryParamMap.pipe(
 			switchMap(params => {

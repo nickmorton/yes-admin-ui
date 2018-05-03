@@ -72,12 +72,14 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	}
 
 	public ngOnInit() {
-		this.buildForm();
-		this.route.data.subscribe(
-			(result: { data: IUserDetailData }) => {
-				this.user = result.data.user || <IUser>{};
-				this.copyDataToFormModel();
-			},
+		this.addForDisposal(
+			this.buildForm(),
+			this.route.data.subscribe(
+				(result: { data: IUserDetailData }) => {
+					this.user = result.data.user || <IUser>{};
+					this.copyDataToFormModel();
+				},
+			)
 		);
 	}
 
@@ -86,7 +88,7 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		const service: Observable<IResponse<IUser>> = this.user._id
 			? this.userService.update({ data: this.user })
 			: this.userService.add({ data: this.user });
-		service.subscribe((response: IResponse<IUser>) => this.user = response.entity);
+		service.subscribe(response => this.user = response.entity);
 	}
 
 	public onReset = () => {
@@ -112,8 +114,8 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 			'surname',
 		));
 
-		this.form.valueChanges.subscribe((change: SimpleChange) => this.onValueChanged(change));
 		this.onValueChanged();
+		return this.form.valueChanges.subscribe((change: SimpleChange) => this.onValueChanged(change));
 	}
 
 	private copyDataToFormModel = () => {

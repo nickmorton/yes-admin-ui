@@ -4,11 +4,13 @@ import { Subscription } from 'rxjs/subscription';
 export class BaseComponent implements OnDestroy {
 	private disposables: Array<Subscription> = [];
 
-	public addForDisposal = (subscription: Subscription) => {
-		this.disposables.push(subscription);
+	protected addForDisposal = (...subscriptions: Subscription[]) => {
+		this.disposables.push(...subscriptions);
 	}
 
 	public ngOnDestroy() {
-		this.disposables.forEach((s: Subscription) => s.unsubscribe);
+		this.disposables
+			.filter(s => s && !s.closed)
+			.forEach(s => s.unsubscribe);
 	}
 }
