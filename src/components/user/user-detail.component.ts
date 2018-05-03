@@ -1,6 +1,6 @@
 import { Component, Injectable, SimpleChange, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute, ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/rx';
 
@@ -60,10 +60,12 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	public form: FormGroup;
 	public readonly defaultDobYear = UserValidator.defaultDobYear;
 	public readonly maximumDob = UserValidator.maximumDob;
+	private returnUrl: string;
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
+		private router: Router,
 		private userService: UserService,
 		validatorFactory: NgValidatorFactory,
 	) {
@@ -79,20 +81,28 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 					this.user = result.data.user || <IUser>{};
 					this.copyDataToFormModel();
 				},
-			)
+			),
+			this.route.queryParamMap.subscribe(p => this.returnUrl = p.get('ret'))
 		);
 	}
 
-	public onSubmit = (): void => {
+	public onSubmit() {
 		Object.assign(this.user, this.form.value);
 		const service: Observable<IResponse<IUser>> = this.user._id
 			? this.userService.update({ data: this.user })
 			: this.userService.add({ data: this.user });
-		service.subscribe(response => this.user = response.entity);
+		service.subscribe(response => {
+			this.user = response.entity;
+			this.navigateToReturnUrl();
+		});
 	}
 
-	public onReset = () => {
+	public onReset() {
 		this.copyDataToFormModel();
+	}
+
+	public onCancel() {
+		this.navigateToReturnUrl();
 	}
 
 	private buildForm = () => {
@@ -137,6 +147,12 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 			surname: this.user.surname || '',
 		};
 		this.form.reset(formModel);
+	}
+
+	private navigateToReturnUrl() {
+		if (this.returnUrl) {
+			this.router.navigateByUrl(this.returnUrl);
+		}
 	}
 }
 
