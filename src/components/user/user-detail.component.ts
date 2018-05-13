@@ -1,11 +1,9 @@
-import { Component, Injectable, SimpleChange, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/rx';
 
-import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../lib';
-import { UserService } from './user.service';
 import {
 	CrisisSupportCode,
 	EmploymentStatusCode,
@@ -15,10 +13,12 @@ import {
 	IResponse,
 	IUser,
 	JobSearchFrequencyCode,
-	UserValidator,
-	TGender
+	TGender,
+	UserValidator
 } from '@nickmorton/yes-admin-common';
+import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../lib';
 import { tansformSlideInOut } from './user-detail.animations';
+import { UserService } from './user.service';
 
 export interface IUserDetailData {
 	user: IUser;

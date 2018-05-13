@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { BaseComponent } from '../../lib';
 import { UserService } from './user.service';
-import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
 
 const PAGE_SIZE = 10;
 const NAME_QUERY_PARAM_KEY = 'name';
