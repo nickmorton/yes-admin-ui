@@ -1,8 +1,8 @@
 import { Component, Injectable, OnInit, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/rx';
 
 import {
 	CrisisSupportCode,
