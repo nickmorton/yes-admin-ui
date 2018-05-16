@@ -1,6 +1,6 @@
 <div @tansformSlideInOut>
 	<form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
-		<div fxLayout="row">
+		<div fxLayout="row" fxLayoutGap="20px">
 			<!-- Column 1 -->
 			<div fxFlex>
 				<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
@@ -120,9 +120,7 @@
 					<div fxFlex>
 						<p>
 							<mat-form-field class="full-width">
-								<mat-select id="crisisSupport" formControlName="crisisSupport" placeholder="Crisis Support" [multiple]="true">
-									<mat-option *ngFor="let code of crisisSupportCode | keys" [value]="code.value">{{code.key}}</mat-option>
-								</mat-select>
+								<input matInput id="visit" formControlName="forename" placeholder="Forename" required>
 							</mat-form-field>
 						</p>
 					</div>
@@ -130,6 +128,61 @@
 			</div>
 			<!-- Column 2 -->
 			<div fxFlex>
+				<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
+					<div fxFlex>
+						<mat-table [dataSource]="user.visits">
+							<ng-container matColumnDef="date">
+								<mat-header-cell *matHeaderCellDef>Date</mat-header-cell>
+								<mat-cell *matCellDef="let visit">
+									{{visit.date | date}}
+								</mat-cell>
+							</ng-container>
+							<ng-container matColumnDef="wasByAppointment">
+								<mat-header-cell *matHeaderCellDef>By Appointment?</mat-header-cell>
+								<mat-cell *matCellDef="let visit">{{visit.wasByAppointment}}</mat-cell>
+							</ng-container>
+							<ng-container matColumnDef="issue">
+								<mat-header-cell *matHeaderCellDef>Issue</mat-header-cell>
+								<mat-cell *matCellDef="let visit">{{visit.issue}}</mat-cell>
+							</ng-container>
+							<mat-header-row *matHeaderRowDef="visitTableColumns"></mat-header-row>
+							<mat-row *matRowDef="let rowData; columns: visitTableColumns"></mat-row>
+						</mat-table>
+					</div>
+					<div>
+						<div fxFlex>
+							<p>
+								<mat-form-field class="full-width">
+									<input matInput #visitDateInput [matDatepicker]="visitDate" [max]="today" [value]="today" placeholder="Date of Visit">
+									<mat-datepicker-toggle matSuffix [for]="visitDate"></mat-datepicker-toggle>
+								</mat-form-field>
+								<mat-datepicker #visitDate startView="month" [startAt]="today"></mat-datepicker>
+							</p>
+						</div>
+						<div fxFlex>
+							<p>
+								<mat-checkbox id="visitWasByAppointment" align="start">
+									Was by Appointment?
+								</mat-checkbox>
+							</p>
+						</div>
+						<div fxFlex>
+							<p>
+								<mat-form-field class="full-width">
+									<mat-select id="visitIssue" placeholder="Issue">
+										<mat-option *ngFor="let code of issueCode | keys" [value]="code.value">{{code.key}}</mat-option>
+									</mat-select>
+								</mat-form-field>
+							</p>
+						</div>
+						<div fxFlex>
+							<p>
+								<button mat-raised-button type="button" (click)="onAddVisit(visitDateInput.value)" [disabled]="!visitDateInput.value">Add Visit</button>
+							</p>
+						</div>
+
+					</div>
+				</div>
 			</div>
 		</div>
 		<p>

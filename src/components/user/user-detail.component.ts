@@ -11,6 +11,7 @@ import {
 	FamilySupportCode,
 	HousingStatusCode,
 	IResponse,
+	IssueCode,
 	IUser,
 	JobSearchFrequencyCode,
 	TGender,
@@ -49,6 +50,7 @@ interface IFormModel {
 })
 export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	public user: IUser = <IUser>{};
+	public visitTableColumns = ['date', 'wasByAppointment', 'issue'];
 	public validators: Map<string, Array<INgValidator>>;
 	public crisisSupportCode: typeof CrisisSupportCode = CrisisSupportCode;
 	public employmentStatusCode: typeof EmploymentStatusCode = EmploymentStatusCode;
@@ -56,10 +58,12 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	public familySupportCode: typeof FamilySupportCode = FamilySupportCode;
 	public housingStatusCode: typeof HousingStatusCode = HousingStatusCode;
 	public jobSearchFrequencyCode: typeof JobSearchFrequencyCode = JobSearchFrequencyCode;
+	public issueCode: typeof IssueCode = IssueCode;
 	public formErrors: { [key: string]: Array<string> } = {};
 	public form: FormGroup;
 	public readonly defaultDobYear = UserValidator.defaultDobYear;
 	public readonly maximumDob = UserValidator.maximumDob;
+	public readonly today = new Date();
 	private returnUrl: string;
 
 	constructor(
@@ -103,6 +107,10 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 
 	public onCancel() {
 		this.navigateToReturnUrl();
+	}
+
+	public onAddVisit(date: Date, issue: IssueCode, wasByAppointment: boolean) {
+		this.user.visits = [...this.user.visits || [], {date, issue, wasByAppointment}];
 	}
 
 	private buildForm = () => {

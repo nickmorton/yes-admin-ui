@@ -17,8 +17,8 @@ const NAME_QUERY_PARAM_KEY = 'name';
 })
 export class UserListComponent extends BaseComponent implements OnInit {
 	public users$: Observable<IUser[]>;
-	public tableColumns = ['userName', 'gender', 'dob', 'lastVisited'];
-	public nameFilter = '';
+	public tableColumns = ['userName', 'gender', 'dob', 'visitCount', 'lastVisited'];
+	public nameFilter = null;
 	private nameFilterSubject = new BehaviorSubject<string>('');
 
 	constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
@@ -60,7 +60,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
 		this.nameFilterSubject.next(name);
 	}
 
-	public view = (user: IUser): boolean => {
+	public viewUser = (user: IUser): boolean => {
 		this.router.navigate(['/users', user._id], { queryParams: { ret: this.router.url } });
 		return false;
 	}
