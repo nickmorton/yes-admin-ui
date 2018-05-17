@@ -1,0 +1,6 @@
+<ng-container *ngIf="!!user; else nothingSelected">
+	<h1>{{user.forename}} {{user.surname}}</h1>
+</ng-container>
+<ng-template #nothingSelected>
+	<h1>Nothing selected</h1>
+</ng-template>

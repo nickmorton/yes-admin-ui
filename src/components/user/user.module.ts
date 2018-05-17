@@ -7,6 +7,7 @@ import { PipesModule } from '../../pipes/pipes.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserDetailComponent, UserDetailResolve } from './user-detail.component';
 import { UserListComponent } from './user-list.component';
+import { UserSummaryComponent } from './user-summary.component';
 import { UserComponent } from './user.component';
 import { userRoutes } from './user.routing';
 import { UserService } from './user.service';
@@ -26,6 +27,7 @@ import { UserService } from './user.service';
 		UserComponent,
 		UserDetailComponent,
 		UserListComponent,
+		UserSummaryComponent
 	],
 	providers: [
 		UserDetailResolve,

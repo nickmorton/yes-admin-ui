@@ -1,35 +1,54 @@
-<mat-form-field floatPlaceholder="never">
-	<input matInput #nameFilterInput placeholder="Filter users by name" (keyup)=onNameFilterChange(nameFilterInput.value) [value]="nameFilter"
-	/>
-</mat-form-field>
+<div fxLayout="row" fxLayoutGap="20px">
+	<!-- Column 1 -->
+	<div fxFlex>
+		<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
+			<div fxFlex>
+				<div id="name-filter-container">
+					<mat-form-field floatPlaceholder="never">
+						<input matInput #nameFilterInput placeholder="Filter users by name" (keyup)=onNameFilterChange(nameFilterInput.value) [value]="nameFilter"
+						/>
+					</mat-form-field>
+				</div>
 
-<mat-table [dataSource]="users$">
-	<ng-container matColumnDef="userName">
-		<mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-		<mat-cell *matCellDef="let user">
-			<a href="#" (click)="viewUser(user)">{{user.forename}} {{user.surname}}</a>
-		</mat-cell>
-	</ng-container>
-	<ng-container matColumnDef="gender">
-		<mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
-		<mat-cell *matCellDef="let user">{{user.gender}}</mat-cell>
-	</ng-container>
-	<ng-container matColumnDef="dob">
-		<mat-header-cell *matHeaderCellDef>Date of Birth</mat-header-cell>
-		<mat-cell *matCellDef="let user">{{user.dob | date}}</mat-cell>
-	</ng-container>
-	<ng-container matColumnDef="visitCount">
-		<mat-header-cell *matHeaderCellDef>Visits</mat-header-cell>
-		<mat-cell *matCellDef="let user">
-			{{user.visits && user.visits.length ? user.visits.length : 0}}
-		</mat-cell>
-	</ng-container>
-	<ng-container matColumnDef="lastVisited">
-		<mat-header-cell *matHeaderCellDef>Last Visited</mat-header-cell>
-		<mat-cell *matCellDef="let user">
-			{{user.lastVisited | date}}
-		</mat-cell>
-	</ng-container>
-	<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
-	<mat-row *matRowDef="let rowData; columns: tableColumns"></mat-row>
-</mat-table>
+				<mat-table [dataSource]="users$">
+					<ng-container matColumnDef="userName">
+						<mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+						<mat-cell *matCellDef="let user">
+							<a href="#" (click)="viewUser(user)">{{user.forename}} {{user.surname}}</a>
+						</mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="gender">
+						<mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+						<mat-cell *matCellDef="let user">{{user.gender}}</mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="dob">
+						<mat-header-cell *matHeaderCellDef>Date of Birth</mat-header-cell>
+						<mat-cell *matCellDef="let user">{{user.dob | date}}</mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="visitCount">
+						<mat-header-cell *matHeaderCellDef>Visits</mat-header-cell>
+						<mat-cell *matCellDef="let user">
+							{{user.visits && user.visits.length ? user.visits.length : 0}}
+						</mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="lastVisited">
+						<mat-header-cell *matHeaderCellDef>Last Visited</mat-header-cell>
+						<mat-cell *matCellDef="let user">
+							{{user.lastVisited | date}}
+						</mat-cell>
+					</ng-container>
+					<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
+					<mat-row *matRowDef="let rowData; columns: tableColumns"></mat-row>
+				</mat-table>
+			</div>
+		</div>
+	</div>
+	<!-- Column 2 -->
+	<div fxFlex>
+		<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
+			<div fxFlex>
+				<app-user-summary [user]="selectedUser"></app-user-summary>
+			</div>
+		</div>
+	</div>
+</div>
