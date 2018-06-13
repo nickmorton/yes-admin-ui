@@ -10,7 +10,7 @@ export class BaseComponent implements OnDestroy {
 
 	public ngOnDestroy() {
 		this.disposables
-			.filter(s => s && !s.closed)
-			.forEach(s => s.unsubscribe);
+			.filter(s => s && !s.closed && s.unsubscribe)
+			.forEach(s => s.unsubscribe());
 	}
 }
