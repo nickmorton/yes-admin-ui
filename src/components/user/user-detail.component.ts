@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
@@ -109,8 +109,8 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		this.navigateToReturnUrl();
 	}
 
-	public onAddVisit(date: Date, issue: IssueCode, wasByAppointment: boolean) {
-		this.user.visits = [...this.user.visits || [], {date, issue, wasByAppointment}];
+	public onAddVisit(date: Date, issue?: IssueCode, wasByAppointment?: boolean) {
+		this.user.visits = [...this.user.visits || [], { date, issue, wasByAppointment }];
 	}
 
 	private buildForm = () => {
@@ -177,6 +177,6 @@ export class UserDetailResolve implements Resolve<IUserDetailData> {
 			);
 		}
 
-		return Observable.of({ user: this.userService.create() });
+		return of({ user: this.userService.create() });
 	}
 }

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject ,  Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap ,  map } from 'rxjs/operators';
 import { BaseComponent } from '../../lib';
 import { UserService } from './user.service';
 
