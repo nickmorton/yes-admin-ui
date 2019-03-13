@@ -52,6 +52,12 @@ Use `docker-compose up` to start the service containers.
 
 See documation for the *Mongo* image [here](https://docs.docker.com/samples/library/mongo/)
 
+To run only the `mongo` service using the container as configured in `docker-compose.yml` use:
+
+```
+docker-compose start mongo
+```
+
 Use `docker ps` to check for the *Docker* container and get it's __name__. If run via `docker-compose` it will be named `yes-admin-mongo`.
 
 To backup the database to the current folder, use:
