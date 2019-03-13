@@ -52,7 +52,19 @@ Use `docker-compose up` to start the service containers.
 
 See documation for the *Mongo* image [here](https://docs.docker.com/samples/library/mongo/)
 
-Use `docker ps` to check for the *Docker* container and get it's __name__.
+Use `docker ps` to check for the *Docker* container and get it's __name__. If run via `docker-compose` it will be named `yes-admin-mongo`.
+
+To backup the database to the current folder, use:
+
+***Bash***
+```
+docker exec yes-admin-mongo sh -c "exec mongodump -d yes-admin --archive" > $(pwd)/yes-admin.archive
+```
+
+***Windows***
+```
+docker exec yes-admin-mongo sh -c "exec mongodump -d yes-admin --archive" > %cd%/yes-admin.archive
+```
 
 Use `docker exec -it <container name> bash` to run a *Linux* `shell` in the container.
 
