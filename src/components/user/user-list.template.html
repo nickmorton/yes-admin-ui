@@ -25,12 +25,6 @@
 						<mat-header-cell *matHeaderCellDef>Date of Birth</mat-header-cell>
 						<mat-cell *matCellDef="let user">{{user.dob | date}}</mat-cell>
 					</ng-container>
-					<ng-container matColumnDef="visitCount">
-						<mat-header-cell *matHeaderCellDef>Visits</mat-header-cell>
-						<mat-cell *matCellDef="let user">
-							{{user.visits && user.visits.length ? user.visits.length : 0}}
-						</mat-cell>
-					</ng-container>
 					<ng-container matColumnDef="lastVisited">
 						<mat-header-cell *matHeaderCellDef>Last Visited</mat-header-cell>
 						<mat-cell *matCellDef="let user">

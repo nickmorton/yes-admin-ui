@@ -5,20 +5,15 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
-	CrisisSupportCode,
-	EmploymentStatusCode,
 	EthnicityCode,
-	FamilySupportCode,
-	HousingStatusCode,
+
 	IResponse,
-	IssueCode,
 	IUser,
-	JobSearchFrequencyCode,
 	TGender,
 	UserValidator
 } from '@nickmorton/yes-admin-common';
 import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../lib';
-import { tansformSlideInOut } from './user-detail.animations';
+import { tansformSlideInOut } from '../../styles/animations';
 import { UserService } from './user.service';
 
 export interface IUserDetailData {
@@ -26,20 +21,12 @@ export interface IUserDetailData {
 }
 
 interface IFormModel {
-	crisisSupport: Array<CrisisSupportCode>;
 	dob: Date;
-	employmentStatus: EmploymentStatusCode;
 	ethnicity: EthnicityCode;
-	familySupport: FamilySupportCode;
+
 	forename: string;
 	gender: TGender;
-	hasCurrentCV: boolean;
-	hasSkillsToFindJob: boolean;
-	housingStatus: HousingStatusCode;
 	isDobApproximate: boolean;
-	isSearchingForJob: boolean;
-	jobInterviewsInLastMonth: number;
-	jobSearchFrequency: JobSearchFrequencyCode;
 	surname: string;
 }
 
@@ -49,21 +36,16 @@ interface IFormModel {
 	animations: [tansformSlideInOut]
 })
 export class UserDetailComponent extends FormBaseComponent implements OnInit {
-	public user: IUser = <IUser>{};
-	public visitTableColumns = ['date', 'wasByAppointment', 'issue'];
-	public validators: Map<string, Array<INgValidator>>;
-	public crisisSupportCode: typeof CrisisSupportCode = CrisisSupportCode;
-	public employmentStatusCode: typeof EmploymentStatusCode = EmploymentStatusCode;
-	public ethnicityCode: typeof EthnicityCode = EthnicityCode;
-	public familySupportCode: typeof FamilySupportCode = FamilySupportCode;
-	public housingStatusCode: typeof HousingStatusCode = HousingStatusCode;
-	public jobSearchFrequencyCode: typeof JobSearchFrequencyCode = JobSearchFrequencyCode;
-	public issueCode: typeof IssueCode = IssueCode;
-	public formErrors: { [key: string]: Array<string> } = {};
-	public form: FormGroup;
-	public readonly defaultDobYear = UserValidator.defaultDobYear;
-	public readonly maximumDob = UserValidator.maximumDob;
-	public readonly today = new Date();
+	user: IUser = <IUser>{};
+	visitTableColumns = ['date', 'wasByAppointment', 'issue'];
+	validators: Map<string, Array<INgValidator>>;
+	ethnicityCode: typeof EthnicityCode = EthnicityCode;
+
+	formErrors: { [key: string]: Array<string> } = {};
+	form: FormGroup;
+	readonly defaultDobYear = UserValidator.defaultDobYear;
+	readonly maximumDob = UserValidator.maximumDob;
+	readonly today = new Date();
 	private returnUrl: string;
 
 	constructor(
@@ -93,7 +75,7 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	public onSubmit() {
 		Object.assign(this.user, this.form.value);
 		const service: Observable<IResponse<IUser>> = this.user._id
-			? this.userService.update({ data: this.user })
+			? this.userService.update(this.user._id, { data: this.user })
 			: this.userService.add({ data: this.user });
 		service.subscribe(response => {
 			this.user = response.entity;
@@ -109,26 +91,13 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		this.navigateToReturnUrl();
 	}
 
-	public onAddVisit(date: Date, issue?: IssueCode, wasByAppointment?: boolean) {
-		this.user.visits = [...this.user.visits || [], { date, issue, wasByAppointment }];
-	}
-
 	private buildForm = () => {
 		this.form = this.formBuilder.group(this.createFormGroup(
-			'crisisSupport',
 			'dob',
-			'employmentStatus',
 			'ethnicity',
-			'familySupport',
 			'forename',
 			'gender',
-			'hasCurrentCV',
-			'hasSkillsToFindJob',
-			'housingStatus',
 			'isDobApproximate',
-			'isSearchingForJob',
-			'jobInterviewsInLastMonth',
-			'jobSearchFrequency',
 			'surname',
 		));
 
@@ -138,20 +107,11 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 
 	private copyDataToFormModel = () => {
 		const formModel: IFormModel = {
-			crisisSupport: this.user.crisisSupport,
 			dob: this.user.dob,
-			employmentStatus: this.user.employmentStatus,
 			ethnicity: this.user.ethnicity,
-			familySupport: this.user.familySupport,
 			forename: this.user.forename || '',
 			gender: this.user.gender,
-			hasCurrentCV: this.user.hasCurrentCV,
-			hasSkillsToFindJob: this.user.hasSkillsToFindJob,
-			housingStatus: this.user.housingStatus,
 			isDobApproximate: this.user.isDobApproximate,
-			isSearchingForJob: this.user.isSearchingForJob,
-			jobInterviewsInLastMonth: this.user.jobInterviewsInLastMonth || 0,
-			jobSearchFrequency: this.user.jobSearchFrequency,
 			surname: this.user.surname || '',
 		};
 		this.form.reset(formModel);
@@ -170,7 +130,7 @@ export class UserDetailResolve implements Resolve<IUserDetailData> {
 	}
 
 	public resolve(route: ActivatedRouteSnapshot): Observable<IUserDetailData> {
-		const id: string = route.params['userId'];
+		const id: string = route.paramMap.get('userId');
 		if (id) {
 			return this.userService.getById(id).pipe(
 				map(response => <IUserDetailData>{ user: response.entity })

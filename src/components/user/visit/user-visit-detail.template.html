@@ -1,0 +1,135 @@
+<div @tansformSlideInOut>
+	<form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
+		<div fxLayout="row" fxLayoutGap="20px">
+			<!-- Column 1 -->
+			<div fxFlex>
+				<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<input matInput #visitDateInput [matDatepicker]="visitDate" [max]="today"
+									[value]="today" placeholder="Date of Visit">
+								<mat-datepicker-toggle matSuffix [for]="visitDate"></mat-datepicker-toggle>
+							</mat-form-field>
+							<mat-datepicker #visitDate startView="month" [startAt]="today"></mat-datepicker>
+						</p>
+					</div>
+					<div fxFlex>
+						<p>
+							<mat-checkbox id="visitWasByAppointment" align="start">
+								Was by Appointment?
+							</mat-checkbox>
+						</p>
+					</div>
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<mat-select id="visitIssue" placeholder="Issue">
+									<mat-option *ngFor="let code of issueCode | keys" [value]="code.value">{{code.key}}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+					<div fxFlex>
+						<mat-form-field class="full-width">
+							<mat-select id="employmentStatus" formControlName="employmentStatus"
+								placeholder="Employment Status">
+								<mat-option *ngFor="let code of employmentStatusCode | keys" [value]="code.value">
+									{{code.key}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-checkbox id="hasCurrentCV" formControlName="hasCurrentCV" align="start">
+								Has current CV?
+							</mat-checkbox>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-checkbox id="hasSkillsToFindJob" formControlName="hasSkillsToFindJob" align="start">
+								Has the skills to find a job?
+							</mat-checkbox>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-checkbox id="isSearchingForJob" formControlName="isSearchingForJob" align="start">
+								Is currently searching for a job?
+							</mat-checkbox>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<mat-select id="jobSearchFrequency" formControlName="jobSearchFrequency"
+									placeholder="Job search frequency">
+									<mat-option *ngFor="let code of jobSearchFrequencyCode | keys" [value]="code.value">
+										{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<mat-form-field class="full-width">
+							<input matInput type="number" id="jobInterviewsInLastMonth"
+								formControlName="jobInterviewsInLastMonth"
+								placeholder="Numner of job interviews in the last month">
+						</mat-form-field>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<mat-select id="housingStatus" formControlName="housingStatus"
+									placeholder="Housing Status">
+									<mat-option *ngFor="let code of housingStatusCode | keys" [value]="code.value">
+										{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<mat-select id="familySupport" formControlName="familySupport"
+									placeholder="Family Support">
+									<mat-option *ngFor="let code of familySupportCode | keys" [value]="code.value">
+										{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<mat-select id="crisisSupport" formControlName="crisisSupport"
+									placeholder="Crisis Support" [multiple]="true">
+									<mat-option *ngFor="let code of crisisSupportCode | keys" [value]="code.value">
+										{{code.key}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+				</div>
+			</div>
+			<!-- Column 2 -->
+			<div fxFlex>
+			</div>
+		</div>
+		<p>
+			<button mat-raised-button color="primary" type="submit" [disabled]="form.pristine">Save</button>
+			<button mat-raised-button type="reset" (click)="onReset()" [disabled]="form.pristine">Reset</button>
+			<button mat-raised-button type="button" (click)="onCancel()">Cancel</button>
+		</p>
+	</form>
+</div>

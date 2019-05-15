@@ -37,12 +37,17 @@ If `node-sass` fails to install, wanting to build a platform specific version, a
 
 To build the image (substitute the version as necessary):
 
-`docker build -t nickmorton/yes-admin-ui:1.0.0 .`
+```
+docker build -t nickmorton/yes-admin-ui:1.0.0 .
+```
 
 Remember to publish latest *yes-admin-common* package to *npm*
 
 And to run:
-`docker run -p 80:80 nickmorton/yes-admin-ui:1.0.0`
+
+```
+docker run -p 80:80 nickmorton/yes-admin-ui:1.0.0
+```
 
 # Services
 
@@ -57,6 +62,14 @@ To run only the `mongo` service using the container as configured in `docker-com
 ```
 docker-compose start mongo
 ```
+
+If that fails due to no mongo container, create it using
+
+```
+docker-compose up --no-start mongo
+```
+
+If you get a `Error starting userland proxy: mkdir /port/tcp:0.0.0.0:80:tcp:172.18.0.4:80: input/output error`, restart Docker itself
 
 Use `docker ps` to check for the *Docker* container and get it's __name__. If run via `docker-compose` it will be named `yes-admin-mongo`.
 

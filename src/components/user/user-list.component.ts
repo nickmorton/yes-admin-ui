@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
-import { BehaviorSubject ,  Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap ,  map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '../../lib';
 import { UserService } from './user.service';
 
@@ -16,7 +16,7 @@ const NAME_QUERY_PARAM_KEY = 'filter';
 })
 export class UserListComponent extends BaseComponent implements OnInit {
 	public users$: Observable<IUser[]>;
-	public tableColumns = ['userName', 'gender', 'dob', 'visitCount', 'lastVisited'];
+	public tableColumns = ['userName', 'gender', 'dob', 'lastVisited'];
 	public nameFilter = null;
 	private nameFilterSubject = new BehaviorSubject<string>('');
 

@@ -11,6 +11,14 @@ import { UserSummaryComponent } from './user-summary.component';
 import { UserComponent } from './user.component';
 import { userRoutes } from './user.routing';
 import { UserService } from './user.service';
+import {
+	UserVisitComponent,
+	UserVisitDetailComponent,
+	UserVisitDetailResolve,
+	UserVisitListComponent,
+	UserVisitListResolve,
+	UserVisitService
+} from './visit';
 
 @NgModule({
 	imports: [
@@ -27,11 +35,17 @@ import { UserService } from './user.service';
 		UserComponent,
 		UserDetailComponent,
 		UserListComponent,
-		UserSummaryComponent
+		UserSummaryComponent,
+		UserVisitComponent,
+		UserVisitDetailComponent,
+		UserVisitListComponent
 	],
 	providers: [
 		UserDetailResolve,
 		UserService,
+		UserVisitDetailResolve,
+		UserVisitListResolve,
+		UserVisitService
 	],
 })
 export class UserModule {
