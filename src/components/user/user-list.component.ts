@@ -16,7 +16,7 @@ const NAME_QUERY_PARAM_KEY = 'filter';
 })
 export class UserListComponent extends BaseComponent implements OnInit {
 	public users$: Observable<IUser[]>;
-	public tableColumns = ['userName', 'gender', 'dob', 'lastVisited'];
+	public tableColumns = ['userName', 'gender', 'dob', 'lastVisited', 'actions'];
 	public nameFilter = null;
 	private nameFilterSubject = new BehaviorSubject<string>('');
 
@@ -31,7 +31,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
 					debounceTime(500),
 					distinctUntilChanged()
 				)
-				.subscribe(filter => this.router.navigate(['/users'], { queryParams: { filter } }))
+				.subscribe(filter => this.router.navigate([], {relativeTo: this.route, queryParams: { filter } }))
 		);
 
 		this.users$ = this.route.queryParamMap.pipe(
@@ -59,7 +59,17 @@ export class UserListComponent extends BaseComponent implements OnInit {
 	}
 
 	public viewUser(user: IUser) {
-		this.router.navigate(['/users', user._id], { queryParams: { ret: this.router.url } });
+		this.router.navigate([user._id], { relativeTo: this.route, queryParams: { ret: this.router.url } });
+		return false;
+	}
+
+	public viewVisits(user: IUser) {
+		this.router.navigate([user._id, 'visits'], { relativeTo: this.route, queryParams: { ret: this.router.url } });
+		return false;
+	}
+
+	public addVisit(user: IUser) {
+		this.router.navigate([user._id, 'visits', 'add'], { relativeTo: this.route, queryParams: { ret: this.router.url } });
 		return false;
 	}
 }

@@ -23,13 +23,13 @@ export class UserVisitListComponent extends BaseComponent implements OnInit {
 	}
 
 	public ngOnInit() {
-		this.route.data.subscribe((result: {data: IUserVisitListData}) => {
+		this.route.data.subscribe((result: { data: IUserVisitListData }) => {
 			this.visits = result.data.visits;
 		});
 	}
 
-	public viewUser(visit: IUserVisit) {
-		this.router.navigate(['visits', visit._id], { queryParams: { ret: this.router.url } });
+	public viewVisit(visit: IUserVisit) {
+		this.router.navigate([visit._id], { relativeTo: this.route });
 		return false;
 	}
 }
@@ -42,7 +42,7 @@ export class UserVisitListResolve implements Resolve<IUserVisitListData> {
 	public resolve(route: ActivatedRouteSnapshot): Observable<IUserVisitListData> {
 		const userId: string = route.paramMap.get('userId');
 		return this.userVisitsService.get({ userId, limit: -1, skip: 0, sort: { lastUpdated: -1 } }).pipe(
-			map(response => <IUserVisitListData>{ visits: response.entities})
+			map(response => <IUserVisitListData>{ visits: response.entities })
 		);
 	}
 }
