@@ -91,7 +91,7 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		this.navigateToReturnUrl();
 	}
 
-	private buildForm = () => {
+	private buildForm() {
 		this.form = this.formBuilder.group(this.createFormGroup(
 			'dob',
 			'ethnicity',
@@ -105,7 +105,7 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		return this.form.valueChanges.subscribe((change: SimpleChange) => this.onValueChanged(change));
 	}
 
-	private copyDataToFormModel = () => {
+	private copyDataToFormModel() {
 		const formModel: IFormModel = {
 			dob: this.user.dob,
 			ethnicity: this.user.ethnicity,

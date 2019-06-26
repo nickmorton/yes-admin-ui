@@ -106,7 +106,7 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 		// // this.visit.visits = [...this.visit.visits || [], { date, issue, wasByAppointment }];
 	}
 
-	private buildForm = () => {
+	private buildForm() {
 		this.form = this.formBuilder.group(this.createFormGroup(
 			'crisisSupport',
 			'employmentStatus',
@@ -123,7 +123,7 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 		return this.form.valueChanges.subscribe((change: SimpleChange) => this.onValueChanged(change));
 	}
 
-	private copyDataToFormModel = () => {
+	private copyDataToFormModel() {
 		const formModel: IFormModel = {
 			crisisSupport: this.visit.crisisSupport,
 			employmentStatus: this.visit.employmentStatus,

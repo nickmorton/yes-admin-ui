@@ -1,18 +1,9 @@
 <mat-sidenav-container fullscreen>
 	<mat-sidenav #sideNav mode="over">
 		<mat-nav-list>
-			<a mat-list-item [routerLink]="['/']" routerLinkActive="active">
-				<mat-icon matListIcon>home</mat-icon>
-				<span matLine>Home</span>
-			</a>
-			<a mat-list-item [routerLink]="['users']" routerLinkActive="active">
-				<mat-icon matListIcon>folder</mat-icon>
-				<span matLine>Users</span>
-			</a>
-			<a mat-list-item [routerLink]="['staff']" routerLinkActive="active">
-				<mat-icon matListIcon>folder</mat-icon>
-				<span matLine>Staff</span>
-			</a>
+			<a mat-list-item [routerLink]="['/']" routerLinkActive="active">Home</a>
+			<a mat-list-item [routerLink]="['users']" routerLinkActive="active">Users</a>
+			<a mat-list-item [routerLink]="['staff']" routerLinkActive="active">Staff</a>
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
