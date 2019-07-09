@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 
-export function buildHttpParams<TSource, TKey extends keyof TSource>(source: TSource, ...keys: TKey[]): HttpParams {
+export function buildHttpParams<TSource, TKey extends Extract<keyof TSource, string>>(source: TSource, ...keys: TKey[]): HttpParams {
 	const result = Object.keys(source)
 		.filter((key: TKey) => keys.includes(key))
 		.reduce((params: HttpParams, key: TKey) => {
@@ -10,7 +10,7 @@ export function buildHttpParams<TSource, TKey extends keyof TSource>(source: TSo
 
 			return params.append(key, source[key].toString());
 		},
-		new HttpParams()
+			new HttpParams()
 		);
 
 	return result;

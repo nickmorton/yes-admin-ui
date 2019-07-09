@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit, SimpleChange } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
@@ -159,6 +159,8 @@ export class UserVisitDetailResolve implements Resolve<IUserVisitDetailData> {
 			);
 		}
 
-		return of({ visit: this.userVisitsService.create(userId) });
+		return this.userVisitsService.create(userId).pipe(
+			map(visit => ({ visit }))
+		);
 	}
 }
