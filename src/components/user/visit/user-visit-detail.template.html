@@ -7,24 +7,50 @@
 					<div fxFlex>
 						<p>
 							<mat-form-field class="full-width">
-								<input matInput #visitDateInput [matDatepicker]="visitDate" [max]="today"
-									[value]="today" placeholder="Date of Visit">
+								<input matInput #visitDateInput [matDatepicker]="visitDate" formControlName="date"
+									[max]="today" placeholder="Date of Visit">
 								<mat-datepicker-toggle matSuffix [for]="visitDate"></mat-datepicker-toggle>
 							</mat-form-field>
 							<mat-datepicker #visitDate startView="month" [startAt]="today"></mat-datepicker>
 						</p>
 					</div>
+
 					<div fxFlex>
 						<p>
-							<mat-checkbox id="visitWasByAppointment" align="start">
+							<mat-form-field class="full-width">
+								<mat-select id="visitTime" formControlName="visitTime" placeholder="Visit Time">
+									<mat-option *ngFor="let code of visitTimeCode | keys" [value]="code.value">
+										{{code.key}}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-checkbox id="visitWasByAppointment" formControlName="wasByAppointment" align="start">
 								Was by Appointment?
 							</mat-checkbox>
 						</p>
 					</div>
+
 					<div fxFlex>
 						<p>
 							<mat-form-field class="full-width">
-								<mat-select id="visitIssue" placeholder="Issue">
+								<mat-select id="contactType" formControlName="contactType" placeholder="Contact Type">
+									<mat-option *ngFor="let code of contactTypeCode | keys" [value]="code.value">
+										{{code.key}}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</p>
+					</div>
+
+					<div fxFlex>
+						<p>
+							<mat-form-field class="full-width">
+								<mat-select id="visitIssue" formControlName="issue" placeholder="Issue">
 									<mat-option *ngFor="let code of issueCode | keys" [value]="code.value">{{code.key}}
 									</mat-option>
 								</mat-select>

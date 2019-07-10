@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
+	ContactTypeCode,
 	CrisisSupportCode,
 	EmploymentStatusCode,
 	EthnicityCode,
@@ -14,7 +15,8 @@ import {
 	IssueCode,
 	IUserVisit,
 	JobSearchFrequencyCode,
-	UserValidator
+	UserValidator,
+	VisitTimeCode
 } from '@nickmorton/yes-admin-common';
 import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../../lib';
 import { tansformSlideInOut } from '../../../styles/animations';
@@ -24,17 +26,23 @@ export interface IUserVisitDetailData {
 	visit: IUserVisit;
 }
 
-interface IFormModel {
-	crisisSupport: Array<CrisisSupportCode>;
-	employmentStatus: EmploymentStatusCode;
-	familySupport: FamilySupportCode;
-	hasCurrentCV: boolean;
-	hasSkillsToFindJob: boolean;
-	housingStatus: HousingStatusCode;
-	isSearchingForJob: boolean;
-	jobInterviewsInLastMonth: number;
-	jobSearchFrequency: JobSearchFrequencyCode;
-}
+type TFormModel = Pick<
+	IUserVisit,
+	'contactType' |
+	'crisisSupport' |
+	'date' |
+	'employmentStatus' |
+	'familySupport' |
+	'hasCurrentCV' |
+	'hasSkillsToFindJob' |
+	'housingStatus' |
+	'isSearchingForJob' |
+	'issue' |
+	'jobInterviewsInLastMonth' |
+	'jobSearchFrequency' |
+	'visitTime' |
+	'wasByAppointment'
+>;
 
 @Component({
 	templateUrl: 'user-visit-detail.template.html',
@@ -42,21 +50,23 @@ interface IFormModel {
 	animations: [tansformSlideInOut]
 })
 export class UserVisitDetailComponent extends FormBaseComponent implements OnInit {
-	public visit: IUserVisit = <IUserVisit>{};
-	public visitTableColumns = ['date', 'wasByAppointment', 'issue'];
-	public readonly validators: Map<string, Array<INgValidator>>;
-	public crisisSupportCode: typeof CrisisSupportCode = CrisisSupportCode;
-	public employmentStatusCode: typeof EmploymentStatusCode = EmploymentStatusCode;
-	public ethnicityCode: typeof EthnicityCode = EthnicityCode;
-	public familySupportCode: typeof FamilySupportCode = FamilySupportCode;
-	public housingStatusCode: typeof HousingStatusCode = HousingStatusCode;
-	public jobSearchFrequencyCode: typeof JobSearchFrequencyCode = JobSearchFrequencyCode;
-	public issueCode: typeof IssueCode = IssueCode;
-	public formErrors: { [key: string]: Array<string> } = {};
-	public form: FormGroup;
-	public readonly defaultDobYear = UserValidator.defaultDobYear;
-	public readonly maximumDob = UserValidator.maximumDob;
-	public readonly today = new Date();
+	visit: IUserVisit = <IUserVisit>{};
+	readonly validators: Map<string, Array<INgValidator>>;
+	crisisSupportCode: typeof CrisisSupportCode = CrisisSupportCode;
+	contactTypeCode: typeof ContactTypeCode = ContactTypeCode;
+	employmentStatusCode: typeof EmploymentStatusCode = EmploymentStatusCode;
+	ethnicityCode: typeof EthnicityCode = EthnicityCode;
+	familySupportCode: typeof FamilySupportCode = FamilySupportCode;
+	housingStatusCode: typeof HousingStatusCode = HousingStatusCode;
+	jobSearchFrequencyCode: typeof JobSearchFrequencyCode = JobSearchFrequencyCode;
+	issueCode: typeof IssueCode = IssueCode;
+	visitTimeCode: typeof VisitTimeCode = VisitTimeCode;
+
+	formErrors: { [key: string]: Array<string> } = {};
+	form: FormGroup;
+	readonly defaultDobYear = UserValidator.defaultDobYear;
+	readonly maximumDob = UserValidator.maximumDob;
+	readonly today = new Date();
 	private returnUrl: string;
 
 	constructor(
@@ -70,7 +80,7 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 		this.validators = validatorFactory.getValidators(UserValidator);
 	}
 
-	public ngOnInit() {
+	ngOnInit() {
 		this.addForDisposal(
 			this.buildForm(),
 			this.route.data.subscribe(
@@ -83,7 +93,7 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 		);
 	}
 
-	public onSubmit() {
+	onSubmit() {
 		Object.assign(this.visit, this.form.value);
 		const service: Observable<IResponse<IUserVisit>> = this.visit._id
 			? this.userService.update({ data: this.visit })
@@ -94,29 +104,30 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 		});
 	}
 
-	public onReset() {
+	onReset() {
 		this.copyDataToFormModel();
 	}
 
-	public onCancel() {
+	onCancel() {
 		this.navigateToReturnUrl();
-	}
-
-	public onAddVisit(date: Date, issue?: IssueCode, wasByAppointment?: boolean) {
-		// // this.visit.visits = [...this.visit.visits || [], { date, issue, wasByAppointment }];
 	}
 
 	private buildForm() {
 		this.form = this.formBuilder.group(this.createFormGroup(
+			'contactType',
 			'crisisSupport',
+			'date',
 			'employmentStatus',
 			'familySupport',
 			'hasCurrentCV',
 			'hasSkillsToFindJob',
 			'housingStatus',
 			'isSearchingForJob',
+			'issue',
 			'jobInterviewsInLastMonth',
 			'jobSearchFrequency',
+			'visitTime',
+			'wasByAppointment'
 		));
 
 		this.onValueChanged();
@@ -124,16 +135,21 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 	}
 
 	private copyDataToFormModel() {
-		const formModel: IFormModel = {
+		const formModel: TFormModel = {
+			contactType: this.visit.contactType,
 			crisisSupport: this.visit.crisisSupport,
+			date: this.visit.date,
 			employmentStatus: this.visit.employmentStatus,
 			familySupport: this.visit.familySupport,
 			hasCurrentCV: this.visit.hasCurrentCV,
 			hasSkillsToFindJob: this.visit.hasSkillsToFindJob,
 			housingStatus: this.visit.housingStatus,
 			isSearchingForJob: this.visit.isSearchingForJob,
+			issue: this.visit.issue,
 			jobInterviewsInLastMonth: this.visit.jobInterviewsInLastMonth || 0,
 			jobSearchFrequency: this.visit.jobSearchFrequency,
+			visitTime: this.visit.visitTime,
+			wasByAppointment: this.visit.wasByAppointment
 		};
 		this.form.reset(formModel);
 	}
