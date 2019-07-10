@@ -57,7 +57,7 @@ export class UserVisitService {
 			} else {
 				return {
 					_userId: userId,
-					contactType: ContactTypeCode.inPerson,
+					contactType: ContactTypeCode['In person'],
 					crisisSupport: [],
 					date: new Date(),
 					employmentStatus: EmploymentStatusCode.unknown,
@@ -69,7 +69,7 @@ export class UserVisitService {
 					isSearchingForJob: true,
 					jobInterviewsInLastMonth: 0,
 					jobSearchFrequency: JobSearchFrequencyCode.unknown,
-					visitTime: VisitTimeCode.am,
+					visitTime: VisitTimeCode.AM,
 					wasByAppointment: false,
 				} as IUserVisit;
 			}
