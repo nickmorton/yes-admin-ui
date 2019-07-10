@@ -150,11 +150,15 @@ export class UserVisitDetailResolve implements Resolve<IUserVisitDetailData> {
 	constructor(private userVisitsService: UserVisitService) {
 	}
 
-	public resolve(route: ActivatedRouteSnapshot): Observable<IUserVisitDetailData> {
+	resolve(route: ActivatedRouteSnapshot): Observable<IUserVisitDetailData> {
 		const userId: string = route.parent.paramMap.get('userId');
 		const visitId: string = route.paramMap.get('visitId');
 		if (visitId) {
 			return this.userVisitsService.getById(visitId).pipe(
+				map(response => <IUserVisitDetailData>{ visit: response.entity })
+			);
+		} else if (route.data.latest) {
+			return this.userVisitsService.getLatest(userId).pipe(
 				map(response => <IUserVisitDetailData>{ visit: response.entity })
 			);
 		}

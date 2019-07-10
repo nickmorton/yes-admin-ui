@@ -28,26 +28,19 @@
 					<ng-container matColumnDef="lastVisited">
 						<mat-header-cell *matHeaderCellDef>Last Visited</mat-header-cell>
 						<mat-cell *matCellDef="let user">
-							<a href="#" (click)="viewVisits(user)" title="Show ALL visits">{{user.lastVisited | date}}</a>
+							<a href="#" (click)="viewLatestVisit(user)">{{user.lastVisited | date}}</a>
 						</mat-cell>
 					</ng-container>
 					<ng-container matColumnDef="actions">
 						<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
 						<mat-cell *matCellDef="let user">
 							<a href="#" (click)="addVisit(user)">Add visit</a>&nbsp;
+							<a href="#" (click)="viewVisits(user)">All visits</a>
 						</mat-cell>
 					</ng-container>
 					<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
 					<mat-row *matRowDef="let rowData; columns: tableColumns"></mat-row>
 				</mat-table>
-			</div>
-		</div>
-	</div>
-	<!-- Column 2 -->
-	<div fxFlex>
-		<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
-			<div fxFlex>
-				<app-user-summary [user]="selectedUser"></app-user-summary>
 			</div>
 		</div>
 	</div>

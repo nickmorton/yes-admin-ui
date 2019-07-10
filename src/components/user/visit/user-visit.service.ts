@@ -42,8 +42,12 @@ export class UserVisitService {
 		return this.http.put<IResponse<IUserVisit>>(`api/visits/${request.data._id}`, request);
 	}
 
+	getLatest(userId: string): Observable<IResponse<IUserVisit>> {
+		return this.http.get<IResponse<IUserVisit>>(`/api/users/${userId}/visits/latest`);
+	}
+
 	create(userId: string): Observable<IUserVisit> {
-		return this.http.get<IResponse<IUserVisit>>(`/api/users/${userId}/visits/latest`).pipe(map(response => {
+		return this.getLatest(userId).pipe(map(response => {
 			if (response && response.entity) {
 				return {
 					...response.entity,

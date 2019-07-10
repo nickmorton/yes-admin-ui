@@ -15,16 +15,16 @@ const NAME_QUERY_PARAM_KEY = 'filter';
 	styleUrls: ['user-list.style.scss']
 })
 export class UserListComponent extends BaseComponent implements OnInit {
-	public users$: Observable<IUser[]>;
-	public tableColumns = ['userName', 'gender', 'dob', 'lastVisited', 'actions'];
-	public nameFilter = null;
+	users$: Observable<IUser[]>;
+	tableColumns = ['userName', 'gender', 'dob', 'lastVisited', 'actions'];
+	nameFilter = null;
 	private nameFilterSubject = new BehaviorSubject<string>('');
 
 	constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
 		super();
 	}
 
-	public ngOnInit() {
+	ngOnInit() {
 		this.addForDisposal(
 			this.nameFilterSubject
 				.pipe(
@@ -54,21 +54,26 @@ export class UserListComponent extends BaseComponent implements OnInit {
 		}
 	}
 
-	public onNameFilterChange(filter: string) {
+	onNameFilterChange(filter: string) {
 		this.nameFilterSubject.next(filter);
 	}
 
-	public viewUser(user: IUser) {
+	viewUser(user: IUser) {
 		this.router.navigate([user._id], { relativeTo: this.route, queryParams: { ret: this.router.url } });
 		return false;
 	}
 
-	public viewVisits(user: IUser) {
+	viewVisits(user: IUser) {
 		this.router.navigate([user._id, 'visits'], { relativeTo: this.route, queryParams: { ret: this.router.url } });
 		return false;
 	}
 
-	public addVisit(user: IUser) {
+	viewLatestVisit(user: IUser) {
+		this.router.navigate([user._id, 'visits', 'latest'], { relativeTo: this.route, queryParams: { ret: this.router.url } });
+		return false;
+	}
+
+	addVisit(user: IUser) {
 		this.router.navigate([user._id, 'visits', 'add'], { relativeTo: this.route, queryParams: { ret: this.router.url } });
 		return false;
 	}

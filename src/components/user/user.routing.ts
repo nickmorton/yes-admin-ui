@@ -46,6 +46,12 @@ const routes: Routes = [
 								resolve: { data: UserVisitDetailResolve },
 							},
 							{
+								path: 'latest',
+								data: { latest: true },
+								component: UserVisitDetailComponent,
+								resolve: { data: UserVisitDetailResolve },
+							},
+							{
 								path: ':visitId',
 								component: UserVisitDetailComponent,
 								resolve: { data: UserVisitDetailResolve },
