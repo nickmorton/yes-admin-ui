@@ -12,7 +12,7 @@
 					</ng-container>
 					<ng-container matColumnDef="visitTime">
 						<mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
-						<mat-cell *matCellDef="let visit">{{visit.visitTime}}</mat-cell>
+						<mat-cell *matCellDef="let visit">{{visit.visitTime | key:visitTimeCode}}</mat-cell>
 					</ng-container>
 					<mat-header-row *matHeaderRowDef="tableColumns"></mat-header-row>
 					<mat-row *matRowDef="let rowData; columns: tableColumns"></mat-row>
