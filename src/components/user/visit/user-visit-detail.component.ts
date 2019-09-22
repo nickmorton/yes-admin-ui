@@ -21,6 +21,7 @@ import {
 import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../../lib';
 import { tansformSlideInOut } from '../../../styles/animations';
 import { UserVisitService } from './user-visit.service';
+import { UserMessageService } from '../../../services'
 
 export interface IUserVisitDetailData {
 	visit: IUserVisit;
@@ -70,10 +71,11 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 	private returnUrl: string;
 
 	constructor(
-		private formBuilder: FormBuilder,
-		private route: ActivatedRoute,
-		private router: Router,
-		private userService: UserVisitService,
+		private readonly formBuilder: FormBuilder,
+		private readonly route: ActivatedRoute,
+		private readonly router: Router,
+		private readonly userService: UserVisitService,
+		private readonly userMessageService: UserMessageService,
 		validatorFactory: NgValidatorFactory,
 	) {
 		super();
@@ -99,6 +101,7 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 			? this.userService.update({ data: this.visit })
 			: this.userService.add({ data: this.visit });
 		service.subscribe(response => {
+			this.userMessageService.savedSuccessfully();
 			this.visit = response.entity;
 			this.navigateToReturnUrl();
 		});

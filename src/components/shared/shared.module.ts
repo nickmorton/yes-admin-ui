@@ -13,9 +13,11 @@ import {
 	MatRadioModule,
 	MatSelectModule,
 	MatSidenavModule,
+	MatSnackBarModule,
 	MatTableModule,
 	MatToolbarModule
 } from '@angular/material';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule(
 	{
@@ -31,6 +33,7 @@ import {
 			MatRadioModule,
 			MatSelectModule,
 			MatSidenavModule,
+			MatSnackBarModule,
 			MatTableModule,
 			MatToolbarModule,
 		],
@@ -46,8 +49,12 @@ import {
 			MatRadioModule,
 			MatSelectModule,
 			MatSidenavModule,
+			MatSnackBarModule,
 			MatToolbarModule,
 		],
+		providers: [
+			{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }
+		]
 	},
 )
 export class SharedModule {

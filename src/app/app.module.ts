@@ -1,6 +1,6 @@
 // Import modules.
 import { CommonModule } from '@angular/common';
-import { HttpClientModule  } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,6 +17,7 @@ import { UserModule } from '../components/user/user.module';
 import { AppComponent } from './app.component';
 import { appRouting } from './app.routing';
 import { PageNotFoundComponent } from './page-not-found.component';
+import { ServicesModule } from '../services/services.module';
 
 @NgModule({
 	bootstrap: [AppComponent],
@@ -32,6 +33,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
 		HttpClientModule,
 		LibModule.forRoot(),
 		RouterModule,
+		ServicesModule.forRoot(),
 
 		// App modules.
 		appRouting,
