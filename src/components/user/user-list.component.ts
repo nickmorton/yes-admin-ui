@@ -17,7 +17,7 @@ const NAME_QUERY_PARAM_KEY = 'filter';
 export class UserListComponent extends BaseComponent implements OnInit {
 	users$: Observable<IUser[]>;
 	tableColumns = ['userName', 'gender', 'dob', 'lastVisited', 'actions'];
-	nameFilter = null;
+	nameFilter: string = null;
 	private nameFilterSubject = new BehaviorSubject<string>('');
 
 	constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {

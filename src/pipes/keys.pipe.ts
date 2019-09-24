@@ -9,7 +9,7 @@ interface IKeyValue {
 	name: 'keys',
 })
 export class KeysPipe implements PipeTransform {
-	public transform(value: any, args: string[]): Array<IKeyValue> {
+	public transform(value: any): Array<IKeyValue> {
 		const keys: Array<IKeyValue> = Object.keys(value)
 			.map((s: string): number => Number(s))
 			.filter((n: number) => !isNaN(n))

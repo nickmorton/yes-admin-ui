@@ -14,10 +14,10 @@ import { LibModule } from '../lib/lib.module';
 // Members.
 import { HomeModule } from '../components/home/home.module';
 import { UserModule } from '../components/user/user.module';
+import { ServicesModule } from '../services/services.module';
 import { AppComponent } from './app.component';
 import { appRouting } from './app.routing';
 import { PageNotFoundComponent } from './page-not-found.component';
-import { ServicesModule } from '../services/services.module';
 
 @NgModule({
 	bootstrap: [AppComponent],

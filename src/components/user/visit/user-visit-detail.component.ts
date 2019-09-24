@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit, SimpleChange } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -19,9 +19,9 @@ import {
 	VisitTimeCode
 } from '@nickmorton/yes-admin-common';
 import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../../lib';
+import { UserMessageService } from '../../../services'
 import { tansformSlideInOut } from '../../../styles/animations';
 import { UserVisitService } from './user-visit.service';
-import { UserMessageService } from '../../../services'
 
 export interface IUserVisitDetailData {
 	visit: IUserVisit;
@@ -134,7 +134,7 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 		));
 
 		this.onValueChanged();
-		return this.form.valueChanges.subscribe((change: SimpleChange) => this.onValueChanged(change));
+		return this.form.valueChanges.subscribe(() => this.onValueChanged());
 	}
 
 	private copyDataToFormModel() {

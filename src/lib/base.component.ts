@@ -2,15 +2,13 @@ import { OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export class BaseComponent implements OnDestroy {
-	private disposables: Array<Subscription> = [];
+	private readonly _rootSubscription = new Subscription();
 
 	protected addForDisposal = (...subscriptions: Subscription[]) => {
-		this.disposables.push(...subscriptions);
+		subscriptions.forEach(s => this._rootSubscription.add(s));
 	}
 
-	public ngOnDestroy() {
-		this.disposables
-			.filter(s => s && !s.closed && s.unsubscribe)
-			.forEach(s => s.unsubscribe());
+	ngOnDestroy() {
+		this._rootSubscription.unsubscribe();
 	}
 }

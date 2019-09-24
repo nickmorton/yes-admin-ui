@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit, SimpleChange } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -102,7 +102,7 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		));
 
 		this.onValueChanged();
-		return this.form.valueChanges.subscribe((change: SimpleChange) => this.onValueChanged(change));
+		return this.form.valueChanges.subscribe(() => this.onValueChanged());
 	}
 
 	private copyDataToFormModel() {
