@@ -6,13 +6,13 @@ import { map } from 'rxjs/operators';
 
 import {
 	EthnicityCode,
-
 	IResponse,
 	IUser,
 	TGender,
 	UserValidator
 } from '@nickmorton/yes-admin-common';
 import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../lib';
+import { SpinnerService, UserMessageService } from '../../services';
 import { tansformSlideInOut } from '../../styles/animations';
 import { UserService } from './user.service';
 
@@ -40,6 +40,7 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	visitTableColumns = ['date', 'wasByAppointment', 'issue'];
 	validators: Map<string, Array<INgValidator>>;
 	ethnicityCode: typeof EthnicityCode = EthnicityCode;
+	isBusy = false;
 
 	formErrors: { [key: string]: Array<string> } = {};
 	form: FormGroup;
@@ -49,10 +50,12 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	private returnUrl: string;
 
 	constructor(
-		private formBuilder: FormBuilder,
-		private route: ActivatedRoute,
-		private router: Router,
-		private userService: UserService,
+		private readonly formBuilder: FormBuilder,
+		private readonly route: ActivatedRoute,
+		private readonly router: Router,
+		private readonly userService: UserService,
+		private readonly userMessageService: UserMessageService,
+		private readonly spinnerService: SpinnerService,
 		validatorFactory: NgValidatorFactory,
 	) {
 		super();
@@ -73,12 +76,17 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 	}
 
 	public onSubmit() {
+		this.isBusy = true;
+		this.spinnerService.show();
 		Object.assign(this.user, this.form.value);
 		const service: Observable<IResponse<IUser>> = this.user._id
 			? this.userService.update(this.user._id, { data: this.user })
 			: this.userService.add({ data: this.user });
 		service.subscribe(response => {
 			this.user = response.entity;
+			this.isBusy = false;
+			this.userMessageService.savedSuccessfully();
+			this.spinnerService.hide();
 			this.navigateToReturnUrl();
 		});
 	}

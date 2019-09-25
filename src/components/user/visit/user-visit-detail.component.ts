@@ -19,7 +19,7 @@ import {
 	VisitTimeCode
 } from '@nickmorton/yes-admin-common';
 import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../../lib';
-import { UserMessageService } from '../../../services'
+import { SpinnerService, UserMessageService } from '../../../services';
 import { tansformSlideInOut } from '../../../styles/animations';
 import { UserVisitService } from './user-visit.service';
 
@@ -62,6 +62,7 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 	jobSearchFrequencyCode: typeof JobSearchFrequencyCode = JobSearchFrequencyCode;
 	issueCode: typeof IssueCode = IssueCode;
 	visitTimeCode: typeof VisitTimeCode = VisitTimeCode;
+	isBusy = false;
 
 	formErrors: { [key: string]: Array<string> } = {};
 	form: FormGroup;
@@ -76,6 +77,7 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 		private readonly router: Router,
 		private readonly userService: UserVisitService,
 		private readonly userMessageService: UserMessageService,
+		private readonly spinnerService: SpinnerService,
 		validatorFactory: NgValidatorFactory,
 	) {
 		super();
@@ -96,13 +98,18 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 	}
 
 	onSubmit() {
+		this.isBusy = true;
+		this.spinnerService.show();
+
 		Object.assign(this.visit, this.form.value);
 		const service: Observable<IResponse<IUserVisit>> = this.visit._id
 			? this.userService.update({ data: this.visit })
 			: this.userService.add({ data: this.visit });
 		service.subscribe(response => {
-			this.userMessageService.savedSuccessfully();
 			this.visit = response.entity;
+			this.isBusy = false;
+			this.userMessageService.savedSuccessfully();
+			this.spinnerService.hide();
 			this.navigateToReturnUrl();
 		});
 	}

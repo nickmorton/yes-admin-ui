@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { BaseComponent } from '../../lib';
+import { SpinnerService } from '../../services';
 import { UserService } from './user.service';
 
 const PAGE_SIZE = 10;
@@ -20,7 +21,11 @@ export class UserListComponent extends BaseComponent implements OnInit {
 	nameFilter: string = null;
 	private nameFilterSubject = new BehaviorSubject<string>('');
 
-	constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
+	constructor(
+		private readonly route: ActivatedRoute,
+		private readonly router: Router,
+		private readonly userService: UserService,
+		private readonly spinnerService: SpinnerService) {
 		super();
 	}
 
@@ -31,11 +36,12 @@ export class UserListComponent extends BaseComponent implements OnInit {
 					debounceTime(500),
 					distinctUntilChanged()
 				)
-				.subscribe(filter => this.router.navigate([], {relativeTo: this.route, queryParams: { filter } }))
+				.subscribe(filter => this.router.navigate([], { relativeTo: this.route, queryParams: { filter } }))
 		);
 
 		this.users$ = this.route.queryParamMap.pipe(
 			switchMap(params => {
+				this.spinnerService.show();
 				const filter = params.get(NAME_QUERY_PARAM_KEY);
 				if (filter !== this.nameFilter) {
 					this.nameFilter = filter;
@@ -43,7 +49,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
 				const sort: TEntitySort<IUser> = filter ? { surname: 1, forename: 1 } : { lastUpdated: -1 };
 				return this.userService
 					.get({ name: filter, skip: 0, limit: PAGE_SIZE, sort })
-					.pipe(map(r => r.entities));
+					.pipe(map(r => r.entities), tap(() => this.spinnerService.hide()));
 			}));
 
 		const queryParamMap = this.route.snapshot.queryParamMap;

@@ -1,6 +1,6 @@
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
-
-// Material modules.
 import {
 	MatButtonModule,
 	MatCardModule,
@@ -10,6 +10,7 @@ import {
 	MatInputModule,
 	MatListModule,
 	MatNativeDateModule,
+	MatProgressSpinnerModule,
 	MatRadioModule,
 	MatSelectModule,
 	MatSidenavModule,
@@ -17,10 +18,12 @@ import {
 	MatTableModule,
 	MatToolbarModule
 } from '@angular/material';
+import { MatSpinner } from '@angular/material/progress-spinner';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule(
 	{
+		entryComponents: [MatSpinner],
 		exports: [
 			MatButtonModule,
 			MatCardModule,
@@ -30,6 +33,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 			MatInputModule,
 			MatListModule,
 			MatNativeDateModule,
+			MatProgressSpinnerModule,
 			MatRadioModule,
 			MatSelectModule,
 			MatSidenavModule,
@@ -46,11 +50,14 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 			MatInputModule,
 			MatListModule,
 			MatNativeDateModule,
+			MatProgressSpinnerModule,
 			MatRadioModule,
 			MatSelectModule,
 			MatSidenavModule,
 			MatSnackBarModule,
 			MatToolbarModule,
+			OverlayModule,
+			PortalModule
 		],
 		providers: [
 			{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }

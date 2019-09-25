@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationBusyService } from '../services';
 
 @Component({
 	selector: 'app-yes-admin',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
 	templateUrl: 'app.template.html',
 })
 export class AppComponent {
-	constructor() {
+	constructor(_: NavigationBusyService) {
 		console.log('App component initialised');
 	}
 }

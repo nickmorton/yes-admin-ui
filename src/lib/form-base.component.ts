@@ -1,4 +1,3 @@
-import { SimpleChange } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BaseComponent } from './base.component';
 import { INgValidator } from './ng-validator-factory';
@@ -8,7 +7,7 @@ export abstract class FormBaseComponent extends BaseComponent {
 	protected abstract validators: Map<string, Array<INgValidator>>;
 	protected abstract formErrors: { [key: string]: Array<string> };
 
-	protected onValueChanged(change?: SimpleChange) {
+	protected onValueChanged() {
 		if (!this.form) {
 			return;
 		}
@@ -33,7 +32,7 @@ export abstract class FormBaseComponent extends BaseComponent {
 		propertyNames.forEach((name: string) => {
 			const validators: Array<INgValidator> = this.validators.get(name);
 			if (validators) {
-				group[name] = ['', validators.map((v: INgValidator) => v.validatorFn)];
+				group[name] = ['', validators.map(validator => validator.validatorFn)];
 			} else {
 				group[name] = [];
 			}
