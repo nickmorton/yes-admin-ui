@@ -15,8 +15,8 @@ import { LibModule } from '../lib/lib.module';
 import { HomeModule } from '../components/home/home.module';
 import { UserModule } from '../components/user/user.module';
 import { ServicesModule } from '../services/services.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { appRouting } from './app.routing';
 import { PageNotFoundComponent } from './page-not-found.component';
 
 @NgModule({
@@ -36,10 +36,10 @@ import { PageNotFoundComponent } from './page-not-found.component';
 		ServicesModule.forRoot(),
 
 		// App modules.
-		appRouting,
 		HomeModule,
 		UserModule,
 		SharedModule,
+		AppRoutingModule
 	],
 })
 export class AppModule {

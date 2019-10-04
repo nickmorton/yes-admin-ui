@@ -7,9 +7,9 @@ import { PipesModule } from '../../pipes/pipes.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserDetailComponent, UserDetailResolve } from './user-detail.component';
 import { UserListComponent } from './user-list.component';
+import { UserRoutingModule } from './user-routing.module';
 import { UserSummaryComponent } from './user-summary.component';
 import { UserComponent } from './user.component';
-import { userRoutes } from './user.routing';
 import { UserService } from './user.service';
 import {
 	UserVisitComponent,
@@ -22,14 +22,14 @@ import {
 
 @NgModule({
 	imports: [
-		userRoutes,
 		CommonModule,
 		DirectivesModule,
 		FlexLayoutModule,
 		FormsModule,
 		PipesModule,
 		ReactiveFormsModule,
-		SharedModule
+		SharedModule,
+		UserRoutingModule
 	],
 	declarations: [
 		UserComponent,

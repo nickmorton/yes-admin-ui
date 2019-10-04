@@ -1,4 +1,4 @@
-import { ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { UserComponent } from '../user/user.component';
@@ -64,4 +64,13 @@ const routes: Routes = [
 	},
 ];
 
-export const userRoutes: ModuleWithProviders = RouterModule.forChild(routes);
+@NgModule({
+	imports: [
+		RouterModule.forChild(routes)
+	],
+	exports: [
+		RouterModule
+	]
+})
+export class UserRoutingModule { }
+
