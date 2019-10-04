@@ -4,9 +4,10 @@
 		<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
 			<div fxFlex>
 				<div id="name-filter-container">
-					<mat-form-field floatPlaceholder="never">
-						<input matInput #nameFilterInput placeholder="Filter users by name" (keyup)=onNameFilterChange(nameFilterInput.value) [value]="nameFilter"
-						/>
+					<mat-form-field floatLabel="always">
+						<mat-label>Filter users by name</mat-label>
+						<input matInput #nameFilterInput placeholder="Enter 3 or more characters"
+							(keyup)=onNameFilterChange(nameFilterInput.value) [value]="nameFilter" />
 					</mat-form-field>
 				</div>
 
