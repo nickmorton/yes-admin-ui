@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { BaseComponent } from '../../lib';
-import { SpinnerService } from '../../services';
+import { SpinnerService, UserMessageService } from '../../services';
 import { UserService } from './user.service';
 
 const PAGE_SIZE = 10;
@@ -25,7 +25,8 @@ export class UserListComponent extends BaseComponent implements OnInit {
 		private readonly route: ActivatedRoute,
 		private readonly router: Router,
 		private readonly userService: UserService,
-		private readonly spinnerService: SpinnerService) {
+		private readonly spinnerService: SpinnerService,
+		private readonly userMessageService: UserMessageService) {
 		super();
 	}
 
@@ -49,7 +50,10 @@ export class UserListComponent extends BaseComponent implements OnInit {
 				const sort: TEntitySort<IUser> = filter ? { surname: 1, forename: 1 } : { lastUpdated: -1 };
 				return this.userService
 					.get({ name: filter, skip: 0, limit: PAGE_SIZE, sort })
-					.pipe(map(r => r.entities), tap(() => this.spinnerService.hide()));
+					.pipe(
+						map(r => r.entities), tap(() => this.spinnerService.hide()),
+						catchError(() => this.userMessageService.serverError('get', []))
+					);
 			}));
 
 		const queryParamMap = this.route.snapshot.queryParamMap;

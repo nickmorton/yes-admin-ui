@@ -1,8 +1,8 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import {
 	EthnicityCode,
@@ -84,10 +84,13 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 			: this.userService.add({ data: this.user });
 		service.subscribe(response => {
 			this.user = response.entity;
-			this.isBusy = false;
 			this.userMessageService.savedSuccessfully();
-			this.spinnerService.hide();
 			this.navigateToReturnUrl();
+		}, () => {
+			this.userMessageService.serverError(this.user._id ? 'put' : 'post');
+		}, () => {
+			this.isBusy = false;
+			this.spinnerService.hide();
 		});
 	}
 
@@ -134,14 +137,18 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 
 @Injectable()
 export class UserDetailResolve implements Resolve<IUserDetailData> {
-	constructor(private userService: UserService) {
+	constructor(private userService: UserService, private readonly userMessageService: UserMessageService) {
 	}
 
 	public resolve(route: ActivatedRouteSnapshot): Observable<IUserDetailData> {
 		const id: string = route.paramMap.get('userId');
 		if (id) {
 			return this.userService.getById(id).pipe(
-				map(response => <IUserDetailData>{ user: response.entity })
+				map(response => <IUserDetailData>{ user: response.entity }),
+				catchError(error => {
+					this.userMessageService.serverError('get');
+					return throwError(error);
+				})
 			);
 		}
 

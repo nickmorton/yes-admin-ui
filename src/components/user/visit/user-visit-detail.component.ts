@@ -1,8 +1,8 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import {
 	ContactTypeCode,
@@ -11,7 +11,6 @@ import {
 	EthnicityCode,
 	FamilySupportCode,
 	HousingStatusCode,
-	IResponse,
 	IssueCode,
 	IUserVisit,
 	JobSearchFrequencyCode,
@@ -102,15 +101,18 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 		this.spinnerService.show();
 
 		Object.assign(this.visit, this.form.value);
-		const service: Observable<IResponse<IUserVisit>> = this.visit._id
+		const service = this.visit._id
 			? this.userService.update({ data: this.visit })
 			: this.userService.add({ data: this.visit });
 		service.subscribe(response => {
 			this.visit = response.entity;
-			this.isBusy = false;
 			this.userMessageService.savedSuccessfully();
-			this.spinnerService.hide();
 			this.navigateToReturnUrl();
+		}, () => {
+			this.userMessageService.serverError(this.visit._id ? 'put' : 'post');
+		}, () => {
+			this.isBusy = false;
+			this.spinnerService.hide();
 		});
 	}
 
@@ -173,24 +175,30 @@ export class UserVisitDetailComponent extends FormBaseComponent implements OnIni
 
 @Injectable()
 export class UserVisitDetailResolve implements Resolve<IUserVisitDetailData> {
-	constructor(private userVisitsService: UserVisitService) {
+	constructor(private readonly userVisitsService: UserVisitService, private readonly userMessageService: UserMessageService) {
 	}
 
 	resolve(route: ActivatedRouteSnapshot): Observable<IUserVisitDetailData> {
 		const userId: string = route.parent.paramMap.get('userId');
 		const visitId: string = route.paramMap.get('visitId');
-		if (visitId) {
-			return this.userVisitsService.getById(visitId).pipe(
-				map(response => <IUserVisitDetailData>{ visit: response.entity })
-			);
-		} else if (route.data.latest) {
-			return this.userVisitsService.getLatest(userId).pipe(
-				map(response => <IUserVisitDetailData>{ visit: response.entity })
+
+		if (visitId || route.data.latest) {
+			const service = visitId ? this.userVisitsService.getById(visitId) : this.userVisitsService.getLatest(userId);
+			return service.pipe(
+				map(response => <IUserVisitDetailData>{ visit: response.entity }),
+				catchError(error => {
+					this.userMessageService.serverError('get');
+					return throwError(error);
+				})
 			);
 		}
 
 		return this.userVisitsService.create(userId).pipe(
-			map(visit => ({ visit }))
+			map(visit => ({ visit })),
+			catchError(error => {
+				this.userMessageService.serverError('get');
+				return throwError(error);
+			})
 		);
 	}
 }

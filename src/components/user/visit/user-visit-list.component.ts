@@ -1,9 +1,11 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { IUserVisit, VisitTimeCode } from '@nickmorton/yes-admin-common';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
 import { BaseComponent } from '../../../lib';
+import { UserMessageService } from '../../../services';
 import { UserVisitService } from './user-visit.service';
 
 export interface IUserVisitListData {
@@ -19,7 +21,7 @@ export class UserVisitListComponent extends BaseComponent implements OnInit {
 	tableColumns = ['date', 'visitTime'];
 	visitTimeCode: typeof VisitTimeCode = VisitTimeCode;
 
-	constructor(private route: ActivatedRoute, private router: Router) {
+	constructor(private readonly route: ActivatedRoute, private readonly router: Router) {
 		super();
 	}
 
@@ -37,13 +39,17 @@ export class UserVisitListComponent extends BaseComponent implements OnInit {
 
 @Injectable()
 export class UserVisitListResolve implements Resolve<IUserVisitListData> {
-	constructor(private userVisitsService: UserVisitService) {
+	constructor(private userVisitsService: UserVisitService, private readonly userMessageService: UserMessageService) {
 	}
 
 	public resolve(route: ActivatedRouteSnapshot): Observable<IUserVisitListData> {
 		const userId: string = route.paramMap.get('userId');
 		return this.userVisitsService.get({ userId, limit: 0, skip: 0, sort: { lastUpdated: -1 } }).pipe(
-			map(response => <IUserVisitListData>{ visits: response.entities })
+			map(response => <IUserVisitListData>{ visits: response.entities }),
+			catchError(error => {
+				this.userMessageService.serverError('get');
+				return throwError(error);
+			})
 		);
 	}
 }
