@@ -14,7 +14,6 @@
     "lint": "ng lint",
     "lint-fix": "tslint -c tslint.json --project tsconfig.json --type-check --fix",
     "ng": "ng",
-    "postinstall": "ivy-ngcc",
     "start": "ng serve --proxy-config proxy.conf.json --live-reload ",
     "test": "ng test"
   },
