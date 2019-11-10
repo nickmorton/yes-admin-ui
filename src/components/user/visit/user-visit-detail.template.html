@@ -1,157 +1,125 @@
 <div @tansformSlideInOut>
 	<form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
-		<div fxLayout="row" fxLayoutGap="20px">
-			<!-- Column 1 -->
-			<div fxFlex>
-				<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
-					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<input matInput #visitDateInput [matDatepicker]="visitDate" formControlName="date"
-									[max]="today" placeholder="Date of Visit">
-								<mat-datepicker-toggle matSuffix [for]="visitDate"></mat-datepicker-toggle>
-							</mat-form-field>
-							<mat-datepicker #visitDate startView="month" [startAt]="today"></mat-datepicker>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<mat-select id="visitTime" formControlName="visitTime" placeholder="Visit Time">
-									<mat-option *ngFor="let code of visitTimeCode | keys" [value]="code.value">
-										{{code.key}}
-									</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-checkbox id="visitWasByAppointment" formControlName="wasByAppointment" align="start">
-								Was by Appointment?
-							</mat-checkbox>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<mat-select id="contactType" formControlName="contactType" placeholder="Contact Type">
-									<mat-option *ngFor="let code of contactTypeCode | keys" [value]="code.value">
-										{{code.key}}
-									</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<mat-select id="visitIssue" formControlName="issue" placeholder="Issue">
-									<mat-option *ngFor="let code of issueCode | keys" [value]="code.value">{{code.key}}
-									</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</p>
-					</div>
-					<div fxFlex>
-						<mat-form-field class="full-width">
-							<mat-select id="employmentStatus" formControlName="employmentStatus"
-								placeholder="Employment Status">
-								<mat-option *ngFor="let code of employmentStatusCode | keys" [value]="code.value">
-									{{code.key}}</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-checkbox id="hasCurrentCV" formControlName="hasCurrentCV" align="start">
-								Has current CV?
-							</mat-checkbox>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-checkbox id="hasSkillsToFindJob" formControlName="hasSkillsToFindJob" align="start">
-								Has the skills to find a job?
-							</mat-checkbox>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-checkbox id="isSearchingForJob" formControlName="isSearchingForJob" align="start">
-								Is currently searching for a job?
-							</mat-checkbox>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<mat-select id="jobSearchFrequency" formControlName="jobSearchFrequency"
-									placeholder="Job search frequency">
-									<mat-option *ngFor="let code of jobSearchFrequencyCode | keys" [value]="code.value">
-										{{code.key}}</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<mat-form-field class="full-width">
-							<input matInput type="number" id="jobInterviewsInLastMonth"
-								formControlName="jobInterviewsInLastMonth"
-								placeholder="Numner of job interviews in the last month">
-						</mat-form-field>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<mat-select id="housingStatus" formControlName="housingStatus"
-									placeholder="Housing Status">
-									<mat-option *ngFor="let code of housingStatusCode | keys" [value]="code.value">
-										{{code.key}}</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<mat-select id="familySupport" formControlName="familySupport"
-									placeholder="Family Support">
-									<mat-option *ngFor="let code of familySupportCode | keys" [value]="code.value">
-										{{code.key}}</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</p>
-					</div>
-
-					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<mat-select id="crisisSupport" formControlName="crisisSupport"
-									placeholder="Crisis Support" [multiple]="true">
-									<mat-option *ngFor="let code of crisisSupportCode | keys" [value]="code.value">
-										{{code.key}}</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</p>
-					</div>
-				</div>
+		<section gdCols="[left] 1fr [centre] 1fr [right] 1fr" gdRows="repeat(5, [row] 1fr)" gdGap="25px">
+			<div gdCol="left" gdRow="row 1">
+				<mat-form-field class="full-width">
+					<input matInput #visitDateInput [matDatepicker]="visitDate" formControlName="date" [max]="today"
+						placeholder="Date of Visit">
+					<mat-datepicker-toggle matSuffix [for]="visitDate"></mat-datepicker-toggle>
+				</mat-form-field>
+				<mat-datepicker #visitDate startView="month" [startAt]="today"></mat-datepicker>
 			</div>
-			<!-- Column 2 -->
-			<div fxFlex>
+
+			<div gdCol="centre" gdRow="row 1">
+				<mat-form-field class="full-width">
+					<mat-select id="visitTime" formControlName="visitTime" placeholder="Visit Time">
+						<mat-option *ngFor="let code of visitTimeCode | keys" [value]="code.value">
+							{{code.key}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+
 			</div>
-		</div>
+
+			<div gdCol="right" gdRow="row 1">
+				<mat-checkbox id="visitWasByAppointment" formControlName="wasByAppointment" align="start">
+					Was by Appointment?
+				</mat-checkbox>
+			</div>
+
+			<div gdCol="left" gdRow="row 2">
+				<mat-form-field class="full-width">
+					<mat-select id="contactType" formControlName="contactType" placeholder="Contact Type">
+						<mat-option *ngFor="let code of contactTypeCode | keys" [value]="code.value">
+							{{code.key}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+
+			<div gdCol="centre" gdRow="row 2">
+				<mat-form-field class="full-width">
+					<mat-select id="visitIssue" formControlName="issue" placeholder="Issue">
+						<mat-option *ngFor="let code of issueCode | keys" [value]="code.value">{{code.key}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+
+			<div gdCol="right" gdRow="row 2">
+				<mat-form-field class="full-width">
+					<mat-select id="employmentStatus" formControlName="employmentStatus"
+						placeholder="Employment Status">
+						<mat-option *ngFor="let code of employmentStatusCode | keys" [value]="code.value">
+							{{code.key}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+
+			<div gdCol="left" gdRow="row 3">
+				<mat-checkbox id="hasCurrentCV" formControlName="hasCurrentCV" align="start">
+					Has current CV?
+				</mat-checkbox>
+			</div>
+
+			<div gdCol="centre" gdRow="row 3">
+				<mat-checkbox id="hasSkillsToFindJob" formControlName="hasSkillsToFindJob" align="start">
+					Has the skills to find a job?
+				</mat-checkbox>
+			</div>
+
+			<div gdCol="right" gdRow="row 3">
+				<mat-checkbox id="isSearchingForJob" formControlName="isSearchingForJob" align="start">
+					Is currently searching for a job?
+				</mat-checkbox>
+			</div>
+
+			<div gdCol="left" gdRow="row 4">
+				<mat-form-field class="full-width">
+					<mat-select id="jobSearchFrequency" formControlName="jobSearchFrequency"
+						placeholder="Job search frequency">
+						<mat-option *ngFor="let code of jobSearchFrequencyCode | keys" [value]="code.value">
+							{{code.key}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+
+			<div gdCol="centre" gdRow="row 4">
+				<mat-form-field class="full-width">
+					<input matInput type="number" id="jobInterviewsInLastMonth"
+						formControlName="jobInterviewsInLastMonth"
+						placeholder="Numner of job interviews in the last month">
+				</mat-form-field>
+			</div>
+
+			<div gdCol="right" gdRow="row 4">
+				<mat-form-field class="full-width">
+					<mat-select id="housingStatus" formControlName="housingStatus" placeholder="Housing Status">
+						<mat-option *ngFor="let code of housingStatusCode | keys" [value]="code.value">
+							{{code.key}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+
+			<div gdCol="left" gdRow="row 5">
+				<mat-form-field class="full-width">
+					<mat-select id="familySupport" formControlName="familySupport" placeholder="Family Support">
+						<mat-option *ngFor="let code of familySupportCode | keys" [value]="code.value">
+							{{code.key}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+
+			<div gdCol="centre" gdRow="row 5">
+				<mat-form-field class="full-width">
+					<mat-select id="crisisSupport" formControlName="crisisSupport" placeholder="Crisis Support"
+						[multiple]="true">
+						<mat-option *ngFor="let code of crisisSupportCode | keys" [value]="code.value">
+							{{code.key}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</section>
 		<p>
 			<button mat-raised-button color="primary" type="submit" [disabled]="form.pristine || isBusy">Save</button>
 			<button mat-raised-button type="reset" (click)="onReset()"

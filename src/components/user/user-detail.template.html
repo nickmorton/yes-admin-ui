@@ -1,61 +1,58 @@
 <div @tansformSlideInOut>
 	<form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
-		<div fxLayout="row" fxLayoutGap="20px">
-			<!-- Column 1 -->
-			<div fxFlex>
-				<div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
-					<div fxFlex>
-						<mat-form-field class="full-width">
-							<input matInput id="forename" formControlName="forename" placeholder="Forename" required>
-						</mat-form-field>
-						<mat-error>
-							<ng-container *ngFor="let error of formErrors.forename">
-								{{ error }}<br />
-							</ng-container>
-						</mat-error>
-					</div>
-					<div fxFlex>
-						<mat-form-field class="full-width">
-							<input matInput id="surname" formControlName="surname" placeholder="Surname" required>
-						</mat-form-field>
-						<mat-error>
-							<ng-container *ngFor="let error of formErrors.surname">
-								{{ error }}<br />
-							</ng-container>
-						</mat-error>
-					</div>
-
-					<div fxFlex="1 1 50px">
-						<mat-radio-group id="gender" formControlName="gender" placeholder="Gender">
-							<mat-radio-button value="Female">Female</mat-radio-button>
-							<mat-radio-button value="Male">Male</mat-radio-button>
-						</mat-radio-group>
-					</div>
-
-					<div fxFlex>
-						<mat-form-field class="full-width">
-							<input matInput [matDatepicker]="dob" [max]="maximumDob" formControlName="dob"
-								placeholder="Date of Birth">
-							<mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
-						</mat-form-field>
-						<mat-datepicker #dob startView="year" [startAt]="defaultDobYear"></mat-datepicker>
-						<mat-checkbox id="isDobApproximate" formControlName="isDobApproximate" align="start">
-							Approximate?
-						</mat-checkbox>
-					</div>
-
-					<div fxFlex>
-						<mat-form-field class="full-width">
-							<mat-select id="ethnicity" formControlName="ethnicity" placeholder="Ethnicity">
-								<mat-option *ngFor="let code of ethnicityCode | keys" [value]="code.value">
-									{{code.key}}</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
-
-				</div>
+		<section gdCols="[left] 1fr [right] 1fr" gdRows="repeat(3, [row] 1fr)" gdGap="25px">
+			<div gdCol="left" gdRow="row 1">
+				<mat-form-field class="full-width">
+					<input matInput id="forename" formControlName="forename" placeholder="Forename" required>
+					<mat-error>
+						<ng-container *ngFor="let error of formErrors.forename">
+							{{ error }}<br />
+						</ng-container>
+					</mat-error>
+				</mat-form-field>
 			</div>
-		</div>
+			<div gdCol="right" gdRow="row 1">
+				<mat-form-field class="full-width">
+					<input matInput id="surname" formControlName="surname" placeholder="Surname" required>
+					<mat-error>
+						<ng-container *ngFor="let error of formErrors.surname">
+							{{ error }}<br />
+						</ng-container>
+					</mat-error>
+				</mat-form-field>
+			</div>
+
+			<div gdCol="left" gdRow="row 2">
+				<mat-form-field>
+					<input matInput [matDatepicker]="dob" [max]="maximumDob" formControlName="dob"
+						placeholder="Date of Birth">
+					<mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+				</mat-form-field>
+				<mat-datepicker #dob startView="year" [startAt]="defaultDobYear"></mat-datepicker>
+			</div>
+
+			<div gdCol="right" gdRow="row 2">
+				<mat-checkbox id="isDobApproximate" formControlName="isDobApproximate" align="start">
+					Approximate?
+				</mat-checkbox>
+			</div>
+
+			<div gdCol="left" gdRow="row 3">
+				<mat-radio-group id="gender" formControlName="gender" placeholder="Gender">
+					<mat-radio-button value="Female">Female</mat-radio-button>
+					<mat-radio-button value="Male">Male</mat-radio-button>
+				</mat-radio-group>
+			</div>
+
+			<div gdCol="right" gdRow="row 3">
+				<mat-form-field>
+					<mat-select id="ethnicity" formControlName="ethnicity" placeholder="Ethnicity">
+						<mat-option *ngFor="let code of ethnicityCode | keys" [value]="code.value">
+							{{code.key}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</section>
 		<p>
 			<button mat-raised-button color="primary" type="submit" [disabled]="form.pristine || isBusy">Save</button>
 			<button mat-raised-button type="reset" (click)="onReset()"
