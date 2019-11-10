@@ -8,17 +8,21 @@
 						<mat-form-field class="full-width">
 							<input matInput id="forename" formControlName="forename" placeholder="Forename" required>
 						</mat-form-field>
-						<div *ngFor="let error of formErrors.forename">
-							{{ error }}
-						</div>
+						<mat-error>
+							<ng-container *ngFor="let error of formErrors.forename">
+								{{ error }}<br />
+							</ng-container>
+						</mat-error>
 					</div>
 					<div fxFlex>
 						<mat-form-field class="full-width">
 							<input matInput id="surname" formControlName="surname" placeholder="Surname" required>
 						</mat-form-field>
-						<div *ngFor="let error of formErrors.surname">
-							{{ error }}
-						</div>
+						<mat-error>
+							<ng-container *ngFor="let error of formErrors.surname">
+								{{ error }}<br />
+							</ng-container>
+						</mat-error>
 					</div>
 
 					<div fxFlex="1 1 50px">
@@ -30,7 +34,8 @@
 
 					<div fxFlex>
 						<mat-form-field class="full-width">
-							<input matInput [matDatepicker]="dob" [max]="maximumDob" formControlName="dob" placeholder="Date of Birth">
+							<input matInput [matDatepicker]="dob" [max]="maximumDob" formControlName="dob"
+								placeholder="Date of Birth">
 							<mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
 						</mat-form-field>
 						<mat-datepicker #dob startView="year" [startAt]="defaultDobYear"></mat-datepicker>
@@ -40,13 +45,12 @@
 					</div>
 
 					<div fxFlex>
-						<p>
-							<mat-form-field class="full-width">
-								<mat-select id="ethnicity" formControlName="ethnicity" placeholder="Ethnicity">
-									<mat-option *ngFor="let code of ethnicityCode | keys" [value]="code.value">{{code.key}}</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</p>
+						<mat-form-field class="full-width">
+							<mat-select id="ethnicity" formControlName="ethnicity" placeholder="Ethnicity">
+								<mat-option *ngFor="let code of ethnicityCode | keys" [value]="code.value">
+									{{code.key}}</mat-option>
+							</mat-select>
+						</mat-form-field>
 					</div>
 
 				</div>
@@ -54,7 +58,8 @@
 		</div>
 		<p>
 			<button mat-raised-button color="primary" type="submit" [disabled]="form.pristine || isBusy">Save</button>
-			<button mat-raised-button type="reset" (click)="onReset()" [disabled]="form.pristine || isBusy">Reset</button>
+			<button mat-raised-button type="reset" (click)="onReset()"
+				[disabled]="form.pristine || isBusy">Reset</button>
 			<button mat-raised-button type="button" (click)="onCancel()" [disabled]="isBusy">Cancel</button>
 		</p>
 	</form>
