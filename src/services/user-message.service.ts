@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UserMessageService {
 	constructor(private readonly _matSnackBar: MatSnackBar) { }
 
@@ -25,5 +25,9 @@ export class UserMessageService {
 		}
 
 		return of(result);
+	}
+
+	authenticationError() {
+		this._matSnackBar.open('Login failed');
 	}
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthenticationeGuard } from '../../lib/authentication.guard';
 import { UserComponent } from '../user/user.component';
 import { UserDetailComponent, UserDetailResolve } from './user-detail.component';
 import { UserListComponent } from './user-list.component';
@@ -14,7 +15,10 @@ import {
 
 const routes: Routes = [
 	{
-		path: 'users', component: UserComponent, children: [
+		path: 'users',
+		component: UserComponent,
+		canActivate: [AuthenticationeGuard],
+		children: [
 			{
 				path: '',
 				component: UserListComponent,

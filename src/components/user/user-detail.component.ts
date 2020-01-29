@@ -1,5 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -56,6 +57,7 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 		private readonly userService: UserService,
 		private readonly userMessageService: UserMessageService,
 		private readonly spinnerService: SpinnerService,
+		private readonly title: Title,
 		validatorFactory: NgValidatorFactory,
 	) {
 		super();
@@ -69,6 +71,7 @@ export class UserDetailComponent extends FormBaseComponent implements OnInit {
 				(result: { data: IUserDetailData }) => {
 					this.user = result.data.user || <IUser>{};
 					this.copyDataToFormModel();
+					this.title.setTitle(this.user._id ? `${this.user.forename} ${this.user.surname}` : '[NEW]');
 				},
 			),
 			this.route.queryParamMap.subscribe(p => this.returnUrl = p.get('ret'))

@@ -41,9 +41,10 @@ export class UserListComponent extends BaseComponent implements OnInit {
 		);
 
 		this.users$ = this.route.queryParamMap.pipe(
-			switchMap(params => {
+			map(params => params.get(NAME_QUERY_PARAM_KEY)),
+			distinctUntilChanged(),
+			switchMap(filter => {
 				this.spinnerService.show();
-				const filter = params.get(NAME_QUERY_PARAM_KEY);
 				if (filter !== this.nameFilter) {
 					this.nameFilter = filter;
 				}

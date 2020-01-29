@@ -6,12 +6,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { AuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
 import 'hammerjs';
 
 import { SharedModule } from '../components/shared/shared.module';
 import { LibModule } from '../lib/lib.module';
+import { getAuthServiceConfig } from './social-login-config';
 
 // Members.
+import { AuthenticationModule } from '../components/authentication/authentication.module';
 import { HomeModule } from '../components/home/home.module';
 import { UserModule } from '../components/user/user.module';
 import { ServicesModule } from '../services/services.module';
@@ -34,13 +37,19 @@ import { PageNotFoundComponent } from './page-not-found.component';
 		LibModule.forRoot(),
 		RouterModule,
 		ServicesModule.forRoot(),
+		SocialLoginModule,
 
 		// App modules.
 		HomeModule,
-		UserModule,
+		AuthenticationModule,
 		SharedModule,
+		UserModule,
 		AppRoutingModule
 	],
+	providers: [
+		{
+			provide: AuthServiceConfig, useFactory: getAuthServiceConfig
+		}]
 })
 export class AppModule {
 }
