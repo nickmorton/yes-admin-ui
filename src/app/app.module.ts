@@ -7,7 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
-import 'hammerjs';
 
 import { SharedModule } from '../components/shared/shared.module';
 import { LibModule } from '../lib/lib.module';
