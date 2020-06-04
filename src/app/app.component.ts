@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationBusyService } from './services';
 
 @Component({
-    selector: 'app-yes-admin',
+    selector: 'yes-admin',
     styleUrls: ['app.component.scss'],
     templateUrl: 'app.component.html',
 })

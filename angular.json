@@ -129,11 +129,11 @@
     "defaultProject": "yes-admin-ui",
     "schematics": {
         "@schematics/angular:component": {
-            "prefix": "app",
-            "styleext": "css"
+            "prefix": "yes",
+            "styleext": "scss"
         },
         "@schematics/angular:directive": {
-            "prefix": "app"
+            "prefix": "yes"
         }
     }
 }

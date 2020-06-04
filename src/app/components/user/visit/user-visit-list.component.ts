@@ -12,7 +12,7 @@ export interface IUserVisitListData {
     visits: IUserVisit[];
 }
 @Component({
-    selector: 'app-user-visit-list',
+    selector: 'yes-user-visit-list',
     templateUrl: 'user-visit-list.component.html',
     styleUrls: ['user-visit-list.component.scss']
 })

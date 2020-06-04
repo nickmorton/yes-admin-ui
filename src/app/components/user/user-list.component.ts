@@ -11,7 +11,7 @@ const PAGE_SIZE = 10;
 const NAME_QUERY_PARAM_KEY = 'filter';
 
 @Component({
-    selector: 'app-user-list',
+    selector: 'yes-user-list',
     templateUrl: 'user-list.component.html',
     styleUrls: ['user-list.component.scss']
 })

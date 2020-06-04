@@ -6,22 +6,22 @@ import { IAuthenticatedUser } from '@nickmorton/yes-admin-common';
 import { AuthenticationService } from '../../services';
 
 @Component({
-	selector: 'app-authenticated-user',
-	templateUrl: 'authenticated-user.component.html',
-	styleUrls: ['authenticated-user.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'yes-authenticated-user',
+    templateUrl: 'authenticated-user.component.html',
+    styleUrls: ['authenticated-user.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthenticatedUserComponent implements OnInit {
-	authenticatedUser$: Observable<IAuthenticatedUser>;
+    authenticatedUser$: Observable<IAuthenticatedUser>;
 
-	constructor(private readonly _authenticationService: AuthenticationService, private readonly _router: Router) { }
+    constructor(private readonly _authenticationService: AuthenticationService, private readonly _router: Router) { }
 
-	ngOnInit() {
-		this.authenticatedUser$ = this._authenticationService.currentUser$;
-	}
+    ngOnInit() {
+        this.authenticatedUser$ = this._authenticationService.currentUser$;
+    }
 
-	onLogoutClick() {
-		this._authenticationService.logout();
-		this._router.navigate(['/login']);
-	}
+    onLogoutClick() {
+        this._authenticationService.logout();
+        this._router.navigate(['/login']);
+    }
 }
