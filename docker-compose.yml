@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   mongo:
@@ -11,6 +11,14 @@ services:
     volumes:
       - mongodata:/data/db
   # Use root/example as user/password credentials
+
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: yes-admin-rabbitmq
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
 
   yes-admin-ui:
     build: ../yes-admin-ui
@@ -26,7 +34,17 @@ services:
     expose:
       - 3000
     environment:
+      - AMQP_URL=amqp://rabbitmq:5672
       - MONGO_URL=mongodb://mongo:27017/yes-admin
+
+  yes-admin-bff:
+    build: ../yes-admin-bff
+    # image: nickmorton/yes-admin-bff:1.0.0
+    container_name: yes-admin-bff
+    expose:
+      - 3001
+    environment:
+      - AMQP_URL=amqp://rabbitmq:5672
 
 volumes:
   mongodata:
