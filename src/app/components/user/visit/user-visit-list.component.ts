@@ -13,8 +13,8 @@ export interface IUserVisitListData {
 }
 @Component({
     selector: 'app-user-visit-list',
-    templateUrl: 'user-visit-list.template.html',
-    styleUrls: ['user-visit-list.style.scss']
+    templateUrl: 'user-visit-list.component.html',
+    styleUrls: ['user-visit-list.component.scss']
 })
 export class UserVisitListComponent extends BaseComponent implements OnInit {
     visits: IUserVisit[];

@@ -3,8 +3,8 @@ import { NavigationBusyService } from './services';
 
 @Component({
     selector: 'app-yes-admin',
-    styleUrls: ['app.style.scss'],
-    templateUrl: 'app.template.html',
+    styleUrls: ['app.component.scss'],
+    templateUrl: 'app.component.html',
 })
 export class AppComponent {
     constructor(_: NavigationBusyService) {
