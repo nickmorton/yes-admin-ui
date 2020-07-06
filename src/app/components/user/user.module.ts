@@ -10,43 +10,41 @@ import { UserListComponent } from './user-list.component';
 import { UserRoutingModule } from './user-routing.module';
 import { UserSummaryComponent } from './user-summary.component';
 import { UserComponent } from './user.component';
-import { UserService } from './user.service';
 import {
-	UserVisitComponent,
-	UserVisitDetailComponent,
-	UserVisitDetailResolve,
-	UserVisitListComponent,
-	UserVisitListResolve,
-	UserVisitService
+    UserVisitComponent,
+    UserVisitDetailComponent,
+    UserVisitDetailResolve,
+    UserVisitListComponent,
+    UserVisitListResolve,
+    UserVisitService
 } from './visit';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		DirectivesModule,
-		FlexLayoutModule,
-		FormsModule,
-		PipesModule,
-		ReactiveFormsModule,
-		SharedModule,
-		UserRoutingModule
-	],
-	declarations: [
-		UserComponent,
-		UserDetailComponent,
-		UserListComponent,
-		UserSummaryComponent,
-		UserVisitComponent,
-		UserVisitDetailComponent,
-		UserVisitListComponent
-	],
-	providers: [
-		UserDetailResolve,
-		UserService,
-		UserVisitDetailResolve,
-		UserVisitListResolve,
-		UserVisitService
-	],
+    imports: [
+        CommonModule,
+        DirectivesModule,
+        FlexLayoutModule,
+        FormsModule,
+        PipesModule,
+        ReactiveFormsModule,
+        SharedModule,
+        UserRoutingModule
+    ],
+    declarations: [
+        UserComponent,
+        UserDetailComponent,
+        UserListComponent,
+        UserSummaryComponent,
+        UserVisitComponent,
+        UserVisitDetailComponent,
+        UserVisitListComponent
+    ],
+    providers: [
+        UserDetailResolve,
+        UserVisitDetailResolve,
+        UserVisitListResolve,
+        UserVisitService
+    ],
 })
 export class UserModule {
 }

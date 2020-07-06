@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
+import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
-import { BaseComponent } from '../../lib';
-import { SpinnerService, UserMessageService } from '../../services';
-import { UserService } from './user.service';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+
+import { IUser, TEntitySort } from '@nickmorton/yes-admin-common';
+import { BaseComponent } from '@yes/lib';
+import { selectAllUsers, userActions } from '@yes/store/user';
 
 const PAGE_SIZE = 10;
 const NAME_QUERY_PARAM_KEY = 'filter';
@@ -16,18 +17,18 @@ const NAME_QUERY_PARAM_KEY = 'filter';
     styleUrls: ['user-list.component.scss']
 })
 export class UserListComponent extends BaseComponent implements OnInit {
-    users$: Observable<IUser[]>;
-    tableColumns = ['userName', 'gender', 'dob', 'lastVisited', 'actions'];
+    readonly users$: Observable<IUser[]>;
+    readonly tableColumns = ['userName', 'gender', 'dob', 'lastVisited', 'actions'];
     nameFilter: string = null;
-    private nameFilterSubject = new BehaviorSubject<string>('');
+    private readonly nameFilterSubject = new BehaviorSubject<string>('');
 
     constructor(
+        private readonly store: Store,
         private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        private readonly userService: UserService,
-        private readonly spinnerService: SpinnerService,
-        private readonly userMessageService: UserMessageService) {
+        private readonly router: Router
+    ) {
         super();
+        this.users$ = this.store.pipe(select(selectAllUsers));
     }
 
     ngOnInit() {
@@ -37,25 +38,19 @@ export class UserListComponent extends BaseComponent implements OnInit {
                     debounceTime(500),
                     distinctUntilChanged()
                 )
-                .subscribe(filter => this.router.navigate([], { relativeTo: this.route, queryParams: { filter } }))
-        );
-
-        this.users$ = this.route.queryParamMap.pipe(
-            map(params => params.get(NAME_QUERY_PARAM_KEY)),
-            distinctUntilChanged(),
-            switchMap(filter => {
-                this.spinnerService.show();
+                .subscribe(filter => this.router.navigate([], { relativeTo: this.route, queryParams: { filter } })),
+            this.route.queryParamMap.pipe(
+                map(params => params.get(NAME_QUERY_PARAM_KEY)),
+                distinctUntilChanged()
+            ).subscribe(filter => {
                 if (filter !== this.nameFilter) {
                     this.nameFilter = filter;
                 }
                 const sort: TEntitySort<IUser> = filter ? { surname: 1, forename: 1 } : { lastUpdated: -1 };
-                return this.userService
-                    .get({ name: filter, skip: 0, limit: PAGE_SIZE, sort })
-                    .pipe(
-                        map(r => r.entities), tap(() => this.spinnerService.hide()),
-                        catchError(() => this.userMessageService.serverError('get', []))
-                    );
-            }));
+                this.store.dispatch(userActions.getUsers({ limit: PAGE_SIZE, name: filter, sort }));
+            })
+
+        );
 
         const queryParamMap = this.route.snapshot.queryParamMap;
         if (queryParamMap.has(NAME_QUERY_PARAM_KEY)) {

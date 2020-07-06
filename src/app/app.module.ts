@@ -13,13 +13,14 @@ import { LibModule } from './lib/lib.module';
 import { getAuthServiceConfig } from './social-login-config';
 
 // Members.
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { AuthenticationModule } from './components/authentication/authentication.module';
 import { HomeModule } from './components/home/home.module';
 import { UserModule } from './components/user/user.module';
-import { ServicesModule } from './services/services.module';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found.component';
+import { ServicesModule } from './services/services.module';
+import { RootStoreModule } from './store/root-store.module';
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -34,6 +35,7 @@ import { PageNotFoundComponent } from './page-not-found.component';
         FlexLayoutModule,
         HttpClientModule,
         LibModule.forRoot(),
+        RootStoreModule,
         RouterModule,
         ServicesModule.forRoot(),
         SocialLoginModule,

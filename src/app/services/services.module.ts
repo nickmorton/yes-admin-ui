@@ -8,15 +8,15 @@ import { UserMessageService } from './user-message.service';
 @NgModule({
 })
 export class ServicesModule {
-	public static forRoot(): ModuleWithProviders<ServicesModule> {
-		return {
-			ngModule: ServicesModule,
-			providers: [
-				AuthenticationService,
-				NavigationBusyService,
-				SpinnerService,
-				UserMessageService
-			],
-		};
-	}
+    public static forRoot(): ModuleWithProviders<ServicesModule> {
+        return {
+            ngModule: ServicesModule,
+            providers: [
+                AuthenticationService,
+                NavigationBusyService,
+                SpinnerService,
+                UserMessageService
+            ],
+        };
+    }
 }

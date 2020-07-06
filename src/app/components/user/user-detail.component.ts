@@ -12,10 +12,9 @@ import {
     TGender,
     UserValidator
 } from '@nickmorton/yes-admin-common';
-import { FormBaseComponent, INgValidator, NgValidatorFactory } from '../../lib';
-import { SpinnerService, UserMessageService } from '../../services';
-import { tansformSlideInOut } from '../../styles/animations';
-import { UserService } from './user.service';
+import { FormBaseComponent, INgValidator, NgValidatorFactory } from '@yes/lib';
+import { SpinnerService, UserMessageService, UserService } from '@yes/services';
+import { tansformSlideInOut } from '@yes/styles/animations';
 
 export interface IUserDetailData {
     user: IUser;

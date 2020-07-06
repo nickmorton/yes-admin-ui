@@ -87,6 +87,6 @@ docker exec yes-admin-mongo sh -c "exec mongodump -d yes-admin --archive" > %cd%
 
 Use `docker exec -it <container name> bash` to run a *Linux* `shell` in the container.
 
-Use `docker exec -it <container name> mongo` to run a *Docker* `shell` in the container.
+Use `docker exec -it <container name> mongo` to run a *Mongo* `shell` in the container.
 
 Prefix `docker exec -it` commands with `winpty` if input device is not a `TTY`

@@ -6,75 +6,75 @@ import { UserComponent } from '../user/user.component';
 import { UserDetailComponent, UserDetailResolve } from './user-detail.component';
 import { UserListComponent } from './user-list.component';
 import {
-	UserVisitComponent,
-	UserVisitDetailComponent,
-	UserVisitDetailResolve,
-	UserVisitListComponent,
-	UserVisitListResolve
+    UserVisitComponent,
+    UserVisitDetailComponent,
+    UserVisitDetailResolve,
+    UserVisitListComponent,
+    UserVisitListResolve
 } from './visit';
 
 const routes: Routes = [
-	{
-		path: 'users',
-		component: UserComponent,
-		canActivate: [AuthenticationeGuard],
-		children: [
-			{
-				path: '',
-				component: UserListComponent,
-			},
-			{
-				path: 'add',
-				component: UserDetailComponent,
-				resolve: { data: UserDetailResolve },
-			},
-			{
-				path: ':userId',
-				// TODO: Add a UserHeader component for user navigation, name headers, etc. The resolve would be on this segment too.
-				children: [
-					{
-						path: '',
-						component: UserDetailComponent,
-						resolve: { data: UserDetailResolve },
-					},
-					{
-						path: 'visits', component: UserVisitComponent, children: [
-							{
-								path: '',
-								component: UserVisitListComponent,
-								resolve: { data: UserVisitListResolve },
-							},
-							{
-								path: 'add',
-								component: UserVisitDetailComponent,
-								resolve: { data: UserVisitDetailResolve },
-							},
-							{
-								path: 'latest',
-								data: { latest: true },
-								component: UserVisitDetailComponent,
-								resolve: { data: UserVisitDetailResolve },
-							},
-							{
-								path: ':visitId',
-								component: UserVisitDetailComponent,
-								resolve: { data: UserVisitDetailResolve },
-							}
-						]
-					}
-				]
-			},
-		],
-	},
+    {
+        path: 'users',
+        component: UserComponent,
+        canActivate: [AuthenticationeGuard],
+        children: [
+            {
+                path: '',
+                component: UserListComponent,
+            },
+            {
+                path: 'add',
+                component: UserDetailComponent,
+                resolve: { data: UserDetailResolve },
+            },
+            {
+                path: ':userId',
+                // TODO: Add a UserHeader component for user navigation, name headers, etc. The resolve would be on this segment too.
+                children: [
+                    {
+                        path: '',
+                        component: UserDetailComponent,
+                        resolve: { data: UserDetailResolve },
+                    },
+                    {
+                        path: 'visits', component: UserVisitComponent, children: [
+                            {
+                                path: '',
+                                component: UserVisitListComponent,
+                                resolve: { data: UserVisitListResolve },
+                            },
+                            {
+                                path: 'add',
+                                component: UserVisitDetailComponent,
+                                resolve: { data: UserVisitDetailResolve },
+                            },
+                            {
+                                path: 'latest',
+                                data: { latest: true },
+                                component: UserVisitDetailComponent,
+                                resolve: { data: UserVisitDetailResolve },
+                            },
+                            {
+                                path: ':visitId',
+                                component: UserVisitDetailComponent,
+                                resolve: { data: UserVisitDetailResolve },
+                            }
+                        ]
+                    }
+                ]
+            },
+        ],
+    },
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forChild(routes)
-	],
-	exports: [
-		RouterModule
-	]
+    imports: [
+        RouterModule.forChild(routes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
 export class UserRoutingModule { }
 
